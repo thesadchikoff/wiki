@@ -1,0 +1,15 @@
+export const enum BACKEND_ENDPOINTS {
+	SIGN_IN = '/auth/sign-in',
+	SIGN_UP = '/auth/sign-up',
+	PROFILE = '/auth/profile',
+	LOGOUT = '/auth/logout',
+	CREATE_NOTE = '/notes',
+	GET_NOTE = '/notes/one/',
+	GET_NOTES = '/notes',
+	UPDATE_NOTE = '/notes/',
+	DELETE_NOTE = '/notes/',
+	CATEGORIES = '/categories',
+	ADD_CATEGORIES = '/categories',
+	GET_CATEGORY = '/categories/',
+	SEARCH_NOTES = '/notes/search/',
+}

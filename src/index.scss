@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+	animation: view 0.3s forwards;
+
+	.dark {
+		color: lavender;
+	}
+	.light {
+		color: black;
+	}
+}
+
+// code {
+// 	@apply border dark:border-dark bg-light dark:bg-dark-foreground text-xs;
+// }
+
+// .w-md-editor-toolbar {
+// 	@apply bg-light-foreground dark:bg-dark-foreground;
+// }
+
+.w-md-editor-preview {
+	@apply bg-light-foreground dark:bg-dark;
+}
+.wmde-markdown {
+	@apply prose-h2:prose-2xl flex flex-col gap-5 bg-light-foreground dark:bg-dark;
+	h2 {
+		@apply bg-light-foreground dark:bg-dark m-0;
+	}
+	pre {
+		@apply border dark:border-dark;
+		code {
+			font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas,
+				Liberation Mono, monospace !important;
+		}
+	}
+	ul {
+		@apply list-disc;
+	}
+	p {
+		@apply bg-light-foreground dark:bg-dark m-0;
+		img {
+			@apply rounded-xl w-full lg:w-1/2 object-fill bg-light-foreground dark:bg-dark;
+		}
+	}
+}
+html {
+	width: 100%;
+	height: 100vh;
+	font-family: 'Inter', sans-serif;
+}
+
+#root,
+body {
+	width: 100%;
+	height: 100%;
+}
