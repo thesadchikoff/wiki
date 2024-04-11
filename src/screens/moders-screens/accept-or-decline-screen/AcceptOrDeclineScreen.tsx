@@ -18,7 +18,7 @@ export const AcceptOrDeclineScreen = () => {
 	const params = useParams()
 	const queryClient = useQueryClient()
 	const navigate = useNavigate()
-	const { data, isLoading, isError, isSuccess } = useQuery<ResponseNote>({
+	const { data } = useQuery<ResponseNote>({
 		queryKey: [QUERIES.GET_NOTE, params.id],
 		// @ts-ignore
 		queryFn: param => notesService.getOneNote(param.queryKey[1]),

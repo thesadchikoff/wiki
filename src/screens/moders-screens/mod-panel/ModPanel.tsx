@@ -12,12 +12,7 @@ export const ModPanel = () => {
 		queryKey: [QUERIES.MOD_GET_CATEGORY],
 		queryFn: modersService.getModeratedCategory,
 	})
-	const {
-		mutate,
-		data: response,
-		isPending,
-		isSuccess: isNotesSuccess,
-	} = useMutation<ResponseModeratorNotes>({
+	const { mutate, data: response } = useMutation<ResponseModeratorNotes>({
 		mutationKey: [QUERIES.MOD_GET_NOTES],
 		// @ts-ignore
 		mutationFn: modersService.getNotesForModerate,
