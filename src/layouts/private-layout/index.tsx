@@ -1,5 +1,6 @@
 import { Header } from '@/components'
-import { ModeratorButton } from '@/components/moderator-btn/ModeratorButton'
+import { AdminButton } from '@/components/system-buttons/AdminButton'
+import { ModeratorButton } from '@/components/system-buttons/ModeratorButton'
 import { useUser } from '@/context'
 import { cn } from '@/utils/classnames'
 import { PropsWithChildren } from 'react'
@@ -22,8 +23,12 @@ export const PrivateLayout = ({ children }: PrivateLayout) => {
 				</div>
 			</div>
 			<Header />
-			{user?.moderatedContent?.length ? <ModeratorButton /> : null}
-			<main className='relative flex-1 p-3 overflow-y-auto lg:p-10'>
+			<div className='fixed z-50 flex flex-col gap-5 bottom-5 right-5'>
+				{user?.moderatedContent?.length ? <ModeratorButton /> : null}
+				{user?.isAdmin ? <AdminButton /> : null}
+			</div>
+
+			<main className='relative flex flex-col flex-1 p-3 overflow-y-auto lg:p-10'>
 				{children}
 			</main>
 		</div>

@@ -21,7 +21,7 @@ export const Header = () => {
 		navigate(ROUTES.AUTH)
 	}
 	return (
-		<header className='z-50 !backdrop-blur-3xl border-b dark:border-dark shadow w-full h-[70px] flex items-center px-2 lg:px-10 bg-light bg-opacity-10 dark:bg-dark-foreground justify-between'>
+		<header className='z-50 !backdrop-blur-3xl border-b dark:border-dark shadow w-full h-[70px] flex items-center px-2 lg:px-10 bg-light dark:bg-dark-foreground justify-between'>
 			<Link to={ROUTES.HOME} className={cn('flex items-center gap-4')}>
 				<FaWeebly className={cn('text-2xl')} />
 				База знаний

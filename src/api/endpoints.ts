@@ -12,4 +12,7 @@ export const enum BACKEND_ENDPOINTS {
 	ADD_CATEGORIES = '/categories',
 	GET_CATEGORY = '/categories/',
 	SEARCH_NOTES = '/notes/search/',
+	MOD_CATEGORY = '/categories/moderation',
+	MOD_NOTES = '/notes/moderation/',
+	MOD_ACCEPT_NOTE = '/notes/accept-or-decline',
 }

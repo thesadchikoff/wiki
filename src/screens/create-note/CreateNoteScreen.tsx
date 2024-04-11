@@ -18,7 +18,7 @@ export const CreateNoteScreen = () => {
 		mutationKey: [QUERIES.CREATE_NOTE],
 		mutationFn: notesService.createNote,
 		onSuccess() {
-			toast.success('Статья успешно создана')
+			toast.success('Статья отправлена на модерацию')
 			navigate(ROUTES.CATEGORY + params.id)
 		},
 		onError(error) {

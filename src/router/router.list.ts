@@ -3,7 +3,8 @@ import { CategoriesScreen } from '@/screens/categories/CategoriesScreen'
 import { CreateCategory } from '@/screens/create-category/CreateCategory'
 import { CreateNoteScreen } from '@/screens/create-note/CreateNoteScreen'
 import { FullNote } from '@/screens/full-note/FullNote'
-import { ModPanel } from '@/screens/mod-panel/ModPanel'
+import { AcceptOrDeclineScreen } from '@/screens/moders-screens/accept-or-decline-screen/AcceptOrDeclineScreen'
+import { ModPanel } from '@/screens/moders-screens/mod-panel/ModPanel'
 import { NoteListScreen } from '@/screens/note-list/NoteListScreen'
 import { ROUTES } from './routes'
 
@@ -41,6 +42,11 @@ export const routerList = [
 	{
 		path: ROUTES.MOD_PANEL,
 		component: ModPanel,
+		isMod: true,
+	},
+	{
+		path: `${ROUTES.MOD_ACCEPT_NOTES}:id`,
+		component: AcceptOrDeclineScreen,
 		isMod: true,
 	},
 	{

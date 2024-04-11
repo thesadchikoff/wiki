@@ -8,4 +8,5 @@ export const enum ROUTES {
 	CATEGORY = '/categories/',
 	CREATE_CATEGORY = '/categories/create',
 	MOD_PANEL = '/mod-panel',
+	MOD_ACCEPT_NOTES = '/mod-panel/accept-or-decline/',
 }
