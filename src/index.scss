@@ -24,8 +24,30 @@
 .w-md-editor-preview {
 	@apply bg-light-foreground dark:bg-dark;
 }
+
+.w-md-editor-toolbar {
+	ul {
+		li {
+			button {
+				@apply w-[40px] h-[40px] flex items-center justify-center flex-col;
+				svg {
+					width: 15px;
+					height: 15px;
+				}
+			}
+		}
+	}
+}
 .wmde-markdown {
 	@apply prose-h2:prose-2xl flex flex-col gap-5 bg-light-foreground dark:bg-dark;
+	blockquote {
+		@apply border-l border-l-4 border-l-gray-500 bg-gray-500/20 py-2 rounded-r;
+		font-family: 'Inter', sans-serif;
+		p {
+			@apply font-medium text-gray-600 dark:text-gray-400;
+			background-color: transparent !important;
+		}
+	}
 	h2 {
 		@apply bg-light-foreground dark:bg-dark m-0;
 	}
@@ -50,6 +72,8 @@ html {
 	width: 100%;
 	height: 100vh;
 	font-family: 'Inter', sans-serif;
+	font-optical-sizing: auto;
+	font-style: normal;
 }
 
 #root,

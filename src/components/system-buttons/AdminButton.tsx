@@ -8,7 +8,7 @@ export const AdminButton = () => {
 	return (
 		<Link
 			to={ROUTES.MOD_PANEL}
-			className='w-[50px] h-[50px] rounded-full bg-red-500 flex flex-col items-center justify-center cursor-pointer'
+			className='w-[50px] h-[50px] rounded-full text-white bg-red-500 flex flex-col items-center justify-center cursor-pointer'
 		>
 			<MdAdminPanelSettings className='text-2xl' />
 		</Link>

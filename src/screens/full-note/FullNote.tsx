@@ -15,6 +15,7 @@ import { IoCalendar } from 'react-icons/io5'
 import { MdAdminPanelSettings, MdModeEdit } from 'react-icons/md'
 import { PiMaskSad } from 'react-icons/pi'
 import { useNavigate, useParams } from 'react-router-dom'
+import { toast } from 'sonner'
 import { LoadingScreen } from '../loading'
 import { EditView } from './is-edit-view/EditView'
 
@@ -30,6 +31,13 @@ export const FullNote = () => {
 		onSuccess() {
 			queryClient.invalidateQueries({ queryKey: [QUERIES.GET_NOTES] })
 			navigate(-1)
+		},
+		onError(error) {
+			toast.error(
+				error?.response?.data?.message
+					? error?.response?.data?.message
+					: error.message
+			)
 		},
 	})
 
@@ -75,7 +83,11 @@ export const FullNote = () => {
 								/>
 							)}
 						</span>
-						{isAuthor(data.author?.id, user?.id!) && (
+						{isAuthor(data.author?.id, user?.id!) ||
+						isAdmin(user?.isAdmin!) ||
+						user?.moderatedContent.find(
+							categoryValid => categoryValid.id === data.categoriesId
+						) ? (
 							<div className='flex items-center gap-5'>
 								<Button
 									title='Редактировать'
@@ -89,7 +101,7 @@ export const FullNote = () => {
 									onClick={() => deleteNote(params.id!)}
 								/>
 							</div>
-						)}
+						) : null}
 					</div>
 					<span className='flex items-center gap-2 text-xs opacity-50 lg:text-lg'>
 						{isEdited(data) ? <MdModeEdit /> : <IoCalendar />}

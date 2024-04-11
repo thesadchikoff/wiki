@@ -20,7 +20,7 @@ export const EditView = ({ note, setEdit }: EditView) => {
 		mutationFn: () => notesService.updateNote(note.id, { content }),
 		onSuccess() {
 			queryClient.invalidateQueries({ queryKey: [QUERIES.GET_NOTE] })
-			toast.success('Статья успешно отредактирована')
+			toast.success('Статья успешно отредактирована и отправлена на модерацию')
 			setEdit(false)
 		},
 		onError(error) {

@@ -17,4 +17,5 @@ type CategoryResponse = {
 		notes: number
 	}
 	moderators: Omit<User, 'id', 'email'>[]
+	createdAt: string
 }
