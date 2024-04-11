@@ -34,8 +34,10 @@ export const FullNote = () => {
 		},
 		onError(error) {
 			toast.error(
+				// @ts-ignore
 				error?.response?.data?.message
-					? error?.response?.data?.message
+					? // @ts-ignore
+					  error?.response?.data?.message
 					: error.message
 			)
 		},
