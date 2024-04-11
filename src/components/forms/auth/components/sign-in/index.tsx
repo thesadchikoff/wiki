@@ -20,6 +20,7 @@ export const SignIn = () => {
 			<div className='flex flex-col gap-10'>
 				<Input
 					placeholder='Почта'
+					type='email'
 					{...signInFormData.register('email', {
 						required: {
 							value: true,
@@ -37,6 +38,7 @@ export const SignIn = () => {
 				/>
 				<Input
 					placeholder='Пароль'
+					type='password'
 					{...signInFormData.register('password', {
 						required: {
 							value: true,
