@@ -53,13 +53,15 @@ export const SignIn = () => {
 			</div>
 			<Button
 				onClick={signInSubmit}
-				title='Войти'
+				size={'lg'}
 				disabled={
 					(signInFormData.formState.isDirty &&
 						!signInFormData.formState.isValid) ||
 					isPending
 				}
-			/>
+			>
+				Войти
+			</Button>
 		</form>
 	)
 }

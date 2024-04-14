@@ -2,7 +2,8 @@ type User = {
 	id: string
 	email: string
 	isAdmin: boolean
-	moderatedContent: CategoryResponse[]
+	moderatedContent: CategoryResponseForUser[]
+	createdAt: string
 }
 
 type AuthData = {

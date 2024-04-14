@@ -45,7 +45,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 							variant === 'danger',
 					},
 					{
-						'bg-danger bg-opacity-25 hover:bg-danger-hover active:bg-danger-pressed disabled:bg-danger-disabled disabled:text-danger-disabled text-danger-disabled':
+						'bg-danger/20 hover:bg-danger-hover active:bg-danger-pressed disabled:bg-danger-disabled disabled:text-danger-disabled text-danger-disabled hover:bg-danger hover:text-white transition-colors duration-150':
 							variant === 'danger-light',
 					},
 					{

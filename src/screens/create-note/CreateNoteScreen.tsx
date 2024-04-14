@@ -50,12 +50,14 @@ export const CreateNoteScreen = () => {
 				height={500}
 			/>
 			<Button
-				title='Отправить'
+				variant={'outline'}
 				onClick={() =>
+					// @ts-ignore
 					mutate({ title, content: value, categoriesId: params.id! })
 				}
-				variant='primary-light'
-			/>
+			>
+				Отправить
+			</Button>
 		</div>
 	)
 }

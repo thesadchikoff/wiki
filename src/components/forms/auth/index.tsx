@@ -15,7 +15,7 @@ export const Auth = () => {
 				<button
 					className={cn('w-1/2 rounded py-1', [
 						{
-							'bg-grey text-white dark:bg-dark-foreground':
+							'bg-grey text-white dark:bg-accent-foreground':
 								scenario === 'sign-in',
 						},
 					])}
@@ -26,7 +26,7 @@ export const Auth = () => {
 				<button
 					className={cn('w-1/2 rounded py-1', [
 						{
-							'bg-grey text-white dark:bg-dark-foreground':
+							'bg-grey text-white dark:bg-accent-foreground':
 								scenario === 'sign-up',
 						},
 					])}

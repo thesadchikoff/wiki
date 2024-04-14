@@ -6,7 +6,13 @@ export const UserPermission = () => {
 	const { user } = useUser()
 	return (
 		<div className='fixed z-50 flex flex-col gap-5 bottom-5 right-5'>
-			{user?.moderatedContent?.length ? <ModeratorButton /> : null}
+			{user?.moderatedContent?.length ? (
+				<ModeratorButton
+					isMark={
+						!!user.moderatedContent.find(category => category._count.notes > 0)
+					}
+				/>
+			) : null}
 			{user?.isAdmin ? <AdminButton /> : null}
 		</div>
 	)

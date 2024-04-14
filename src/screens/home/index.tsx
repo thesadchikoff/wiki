@@ -51,11 +51,12 @@ export const HomeScreen = () => {
 				</p>
 				<div className='flex flex-col items-center gap-10 lg:flex-row'>
 					<Button
-						className='w-full lg:w-max'
-						variant='primary-light'
-						title='Начать'
+						variant={'ghost'}
+						className='w-full px-10 border rounded lg:w-max backdrop-blur-sm bg-white/20 dark:border-dark'
 						onClick={() => navigate(ROUTES.CATEGORIES)}
-					/>
+					>
+						Начать
+					</Button>
 				</div>
 			</div>
 		</motion.section>

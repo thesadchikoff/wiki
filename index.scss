@@ -1,0 +1,160 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	:root {
+		--background: 0 0% 100%;
+		--foreground: 240 10% 3.9%;
+
+		--card: 0 0% 100%;
+		--card-foreground: 240 10% 3.9%;
+
+		--popover: 0 0% 100%;
+		--popover-foreground: 240 10% 3.9%;
+
+		--primary: 240 5.9% 10%;
+		--primary-foreground: 0 0% 98%;
+
+		--secondary: 240 4.8% 95.9%;
+		--secondary-foreground: 240 5.9% 10%;
+
+		--muted: 240 4.8% 95.9%;
+		--muted-foreground: 240 3.8% 46.1%;
+
+		--accent: 240 4.8% 95.9%;
+		--accent-foreground: 240 5.9% 10%;
+
+		--destructive: 0 84.2% 60.2%;
+		--destructive-foreground: 0 0% 98%;
+
+		--border: 240 5.9% 90%;
+		--input: 240 5.9% 90%;
+		--ring: 240 10% 3.9%;
+
+		--radius: 0.5rem;
+	}
+
+	.dark {
+		--background: 240 10% 3.9%;
+		--foreground: 0 0% 98%;
+
+		--card: 240 10% 3.9%;
+		--card-foreground: 0 0% 98%;
+
+		--popover: 240 10% 3.9%;
+		--popover-foreground: 0 0% 98%;
+
+		--primary: 0 0% 98%;
+		--primary-foreground: 240 5.9% 10%;
+
+		--secondary: 240 3.7% 15.9%;
+		--secondary-foreground: 0 0% 98%;
+
+		--muted: 240 3.7% 15.9%;
+		--muted-foreground: 240 5% 64.9%;
+
+		--accent: 240 3.7% 15.9%;
+		--accent-foreground: 0 0% 98%;
+
+		--destructive: 0 62.8% 30.6%;
+		--destructive-foreground: 0 0% 98%;
+
+		--border: 240 3.7% 15.9%;
+		--input: 240 3.7% 15.9%;
+		--ring: 240 4.9% 83.9%;
+	}
+}
+
+@layer base {
+	* {
+		@apply border-border;
+	}
+	body {
+		@apply bg-background text-foreground;
+	}
+}
+
+* {
+	animation: view 0.3s forwards;
+
+	.dark {
+		color: lavender;
+	}
+	.light {
+		color: black;
+	}
+}
+
+// code {
+// 	@apply text-xs border dark:border-dark bg-light dark:bg-dark-foreground;
+// }
+
+// .w-md-editor-toolbar {
+// 	@apply bg-light-foreground dark:bg-dark-foreground;
+// }
+
+.w-md-editor-preview {
+	@apply bg-light-foreground dark:bg-dark;
+}
+
+.w-md-editor-toolbar {
+	ul {
+		li {
+			button {
+				@apply w-[40px] h-[40px] flex items-center justify-center flex-col;
+				svg {
+					width: 15px;
+					height: 15px;
+				}
+			}
+		}
+	}
+}
+.wmde-markdown {
+	@apply flex flex-col gap-5 prose-h2:prose-2xl bg-light-foreground dark:bg-dark;
+	blockquote {
+		@apply py-2 border-l border-l-4 rounded-r border-l-gray-500 bg-gray-500/20;
+		font-family: 'Inter', sans-serif;
+		p {
+			@apply font-medium text-gray-600 dark:text-gray-400;
+			background-color: transparent !important;
+		}
+	}
+	h2 {
+		@apply m-0 bg-light-foreground dark:bg-dark;
+	}
+	pre {
+		@apply border dark:border-dark;
+		code {
+			font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas,
+				Liberation Mono, monospace !important;
+		}
+	}
+	ul {
+		@apply list-disc;
+	}
+	p {
+		@apply m-0 bg-light-foreground dark:bg-dark;
+		img {
+			@apply object-fill w-full rounded-xl lg:w-1/2 bg-light-foreground dark:bg-dark;
+		}
+	}
+}
+html {
+	width: 100%;
+	height: 100vh;
+	font-family: 'Inter', sans-serif;
+	font-optical-sizing: auto;
+	font-style: normal;
+}
+
+.dark {
+	@apply bg-dark;
+}
+
+#root,
+body {
+	width: 100%;
+	height: 100%;
+}

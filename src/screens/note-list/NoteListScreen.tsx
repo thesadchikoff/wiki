@@ -1,4 +1,3 @@
-import { ResponseNote } from '@/@types/note'
 import { Button, Input } from '@/components'
 import { BackLink } from '@/components/back-link/BackLink'
 import { NoteItem } from '@/components/note-item/NoteItem'
@@ -62,14 +61,13 @@ export const NoteListScreen = () => {
 					<BackLink url={ROUTES.CATEGORIES} title='К категориям' />
 					<div className='flex flex-col items-center gap-5 lg:flex-row'>
 						<Button
-							size='xs'
-							title='Создать'
-							variant='primary-light'
 							onClick={() =>
 								navigate(ROUTES.CATEGORY + params.id + ROUTES.CREATE_NOTE)
 							}
 							className='w-max'
-						/>
+						>
+							Создать
+						</Button>
 					</div>
 				</div>
 				{category?.moderators.length ? (

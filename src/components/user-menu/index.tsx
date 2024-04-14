@@ -1,6 +1,11 @@
+import {
+	Menubar,
+	MenubarContent,
+	MenubarMenu,
+	MenubarTrigger,
+} from '@/components/ui/menubar'
 import { cn } from '@/utils/classnames'
 import { PropsWithChildren, useEffect, useRef } from 'react'
-
 interface UserMenu extends PropsWithChildren {
 	email: string
 	state: boolean
@@ -30,22 +35,24 @@ export const UserMenu = ({ email, setState, state, children }: UserMenu) => {
 		}
 	}, [setState])
 	return (
-		<div ref={rootRef}>
-			<span
-				onClick={() => setState(!state)}
-				className={cn('select-none cursor-pointer')}
-			>
-				{email}
-			</span>
-			{state && (
-				<div
-					className={cn(
-						'absolute z-50 flex flex-col rounded shadow-xl top-8 bg-light dark:bg-dark-foreground transition-all duration-200'
-					)}
+		<Menubar ref={rootRef}>
+			<MenubarMenu>
+				<MenubarTrigger
+					onClick={() => setState(!state)}
+					className={cn('select-none cursor-pointer')}
 				>
-					{children}
-				</div>
-			)}
-		</div>
+					{email}
+				</MenubarTrigger>
+				{state && (
+					<MenubarContent
+						className={cn(
+							' z-50 flex flex-col gap-2 rounded shadow-xl  bg-light dark:bg-dark-foreground transition-all duration-200'
+						)}
+					>
+						{children}
+					</MenubarContent>
+				)}
+			</MenubarMenu>
+		</Menubar>
 	)
 }

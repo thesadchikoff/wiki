@@ -1,30 +1,37 @@
-import { ResponseNote } from '@/@types/note'
+import {
+	Card,
+	CardDescription,
+	CardFooter,
+	CardHeader,
+	CardTitle,
+} from '@/components/ui/card'
 import { ROUTES } from '@/router/routes'
 import { dateFormat } from '@/utils/dateFormat'
 import { IoCalendar } from 'react-icons/io5'
-import { Link, useParams } from 'react-router-dom'
-
+import { useNavigate, useParams } from 'react-router-dom'
 interface NoteItem {
 	note: ResponseNote
 }
 
 export const NoteItem = ({ note }: NoteItem) => {
 	const params = useParams()
+	const navigate = useNavigate()
 	return (
-		<Link
-			to={ROUTES.CATEGORY + params.id + '/note/' + note.id}
-			className='flex flex-col gap-5 px-6 py-4 transition-transform duration-150 border shadow cursor-pointer select-none hover:scale-105 bg-light dark:bg-dark-foreground rounded-xl dark:border-dark active:scale-95'
+		<Card
+			className='overflow-hidden cursor-pointer'
+			onClick={() => navigate(ROUTES.CATEGORY + params.id + '/note/' + note.id)}
 		>
-			<div className='flex items-center justify-between'>
-				<h2>{note.title}</h2>
-			</div>
-			<div className='flex items-center justify-between text-xs opacity-40'>
-				<span>Автор: {note.author.email}</span>
-				<span className='flex items-center gap-2'>
+			<CardHeader>
+				<CardTitle>{note.title}</CardTitle>
+				<CardDescription>{note.author.email}</CardDescription>
+			</CardHeader>
+			{/* <CardContent className='z-0'></CardContent> */}
+			<CardFooter className='z-[50000] flex justify-between '>
+				<span className='flex items-center gap-2 text-sm opacity-50'>
 					<IoCalendar />
 					{dateFormat(note.createdAt)}
 				</span>
-			</div>
-		</Link>
+			</CardFooter>
+		</Card>
 	)
 }

@@ -32,7 +32,7 @@ export const ModPanel = () => {
 							>
 								<span className='text-ellipsis'>{category.title}</span>
 								{category.notes.length ? (
-									<span className='z-10 flex items-center justify-center w-[20px] h-[20px] text-sm bg-red-600  text-white rounded-full'>
+									<span className='z-10 flex items-center justify-center px-2 text-sm text-white bg-red-600 rounded-full min-w-[20px] min-h-[23px]'>
 										{category.notes.length}
 									</span>
 								) : null}

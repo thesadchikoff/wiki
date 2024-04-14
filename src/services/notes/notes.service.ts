@@ -1,4 +1,3 @@
-import { Note } from '@/@types/note'
 import { BACKEND_ENDPOINTS } from '@/api/endpoints'
 import { api } from '@/api/instanse'
 
@@ -30,6 +29,7 @@ export default new (class NotesService {
 		return data
 	}
 	async updateNote(noteId: string, noteDataForUpdate: { content: string }) {
+		console.log(noteDataForUpdate)
 		const { data } = await api.patch(
 			BACKEND_ENDPOINTS.UPDATE_NOTE + noteId,
 			noteDataForUpdate

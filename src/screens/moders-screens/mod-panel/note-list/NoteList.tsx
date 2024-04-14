@@ -1,5 +1,5 @@
-import { ResponseNote } from '@/@types/note'
 import { ROUTES } from '@/router/routes'
+import { cn } from '@/utils/classnames'
 import { dateFormat } from '@/utils/dateFormat'
 import { PropsWithChildren } from 'react'
 import { FaUserLarge } from 'react-icons/fa6'
@@ -46,10 +46,18 @@ export const NoteList = ({ notes, category }: NoteList) => {
 									{dateFormat(note.createdAt)}
 								</div>
 							</div>
-							<div>
+							<div className='flex items-center justify-between'>
 								<span className='flex items-center gap-2 text-xs opacity-50'>
 									<FaUserLarge />
 									{note?.author?.email}
+								</span>
+								<span
+									className={cn(
+										'px-4 py-1 text-xs text-blue-500 rounded bg-blue-500/20',
+										[{ 'bg-orange-500/20 text-orange-500': !note.isEdited }]
+									)}
+								>
+									{note.isEdited ? 'На редактирование' : 'На публикацию'}
 								</span>
 							</div>
 						</Link>

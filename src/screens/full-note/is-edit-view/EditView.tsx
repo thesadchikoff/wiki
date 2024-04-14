@@ -1,4 +1,3 @@
-import { ResponseNote } from '@/@types/note'
 import { Button } from '@/components'
 import { QUERIES } from '@/constants/query.constants'
 import { LoadingScreen } from '@/screens/loading'
@@ -14,13 +13,16 @@ interface EditView {
 }
 export const EditView = ({ note, setEdit }: EditView) => {
 	const [content, setContent] = useState(note.content)
+
 	const queryClient = useQueryClient()
 	const { mutate, isPending } = useMutation({
 		mutationKey: [QUERIES.UPDATE_NOTE],
 		mutationFn: () => notesService.updateNote(note.id, { content }),
-		onSuccess() {
+		onSuccess(data) {
 			queryClient.invalidateQueries({ queryKey: [QUERIES.GET_NOTE] })
-			toast.success('Статья успешно отредактирована и отправлена на модерацию')
+			toast.success(data.message.title, {
+				description: data.message.description,
+			})
 			setEdit(false)
 		},
 		onError(error) {
@@ -32,7 +34,6 @@ export const EditView = ({ note, setEdit }: EditView) => {
 	return (
 		<div className='flex flex-col gap-10'>
 			<MDEditor
-				// className='w-full text-black bg-light dark:bg-dark dark:text-white'
 				value={content}
 				// @ts-ignore
 				onChange={setContent}
@@ -40,12 +41,10 @@ export const EditView = ({ note, setEdit }: EditView) => {
 			/>
 			<div className='flex items-center gap-5'>
 				{/* @ts-ignore */}
-				<Button title='Опубликовать' variant='primary-light' onClick={mutate} />
-				<Button
-					title='Отмена'
-					variant='danger-light'
-					onClick={() => setEdit(false)}
-				/>
+				<Button onClick={mutate}>Опубликовать</Button>
+				<Button variant={'destructive'} onClick={() => setEdit(false)}>
+					Отмена
+				</Button>
 			</div>
 		</div>
 	)

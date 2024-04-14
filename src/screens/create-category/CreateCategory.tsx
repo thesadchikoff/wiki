@@ -131,11 +131,9 @@ export const CreateCategory = () => {
 						})}
 					/>
 				</div>
-				<Button
-					title='Создать'
-					variant='primary-light'
-					onClick={createCategory}
-				/>
+				<Button onClick={createCategory} variant={'outline'}>
+					Создать
+				</Button>
 			</div>
 		</div>
 	)

@@ -19,3 +19,13 @@ type CategoryResponse = {
 	moderators: Omit<User, 'id', 'email'>[]
 	createdAt: string
 }
+
+type CategoryResponseForModerator = {
+	notes: ResponseNote[]
+} & CategoryResponse
+
+type CategoryResponseForUser = {
+	_count: {
+		notes: number
+	}
+} & CategoryResponse
