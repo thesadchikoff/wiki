@@ -39,4 +39,11 @@ export default new (class NotesService {
 	async deleteNote(noteId: string) {
 		return api.delete(BACKEND_ENDPOINTS.DELETE_NOTE + noteId)
 	}
+
+	async toggleActualNote(noteId: string) {
+		const { data } = await api.patch(
+			BACKEND_ENDPOINTS.TOGGLE_ACTUAL_NOTE + noteId
+		)
+		return data
+	}
 })()

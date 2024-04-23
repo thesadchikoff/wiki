@@ -36,7 +36,7 @@ export const Header = () => {
 							state={isVisible}
 						>
 							<>
-								<MenubarItem className='teext-black dark:text-white'>
+								<MenubarItem className='text-black dark:text-white'>
 									{user.email}
 								</MenubarItem>
 

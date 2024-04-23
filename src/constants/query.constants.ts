@@ -14,4 +14,5 @@ export const enum QUERIES {
 	MOD_GET_CATEGORY = 'get-category-for-moderator',
 	MOD_ACCEPT_NOTE_CHANGE = 'change-note-for-moderator',
 	MOD_GET_NOTES = 'get-note-for-moderator',
+	TOGGLE_ACTUAL_NOTE = 'toggle-actual-note',
 }

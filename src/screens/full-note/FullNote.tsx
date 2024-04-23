@@ -1,11 +1,21 @@
 import { Button } from '@/components'
 import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuGroup,
+	DropdownMenuItem,
+	DropdownMenuSeparator,
+	DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import {
 	HoverCard,
 	HoverCardContent,
 	HoverCardTrigger,
 } from '@/components/ui/hover-card'
 import { QUERIES } from '@/constants/query.constants'
 import { useUser } from '@/context'
+import { cn } from '@/lib/utils'
+import { ROUTES } from '@/router/routes'
 import notesService from '@/services/notes/notes.service'
 import { dateFormat } from '@/utils/dateFormat'
 import { isAdmin } from '@/utils/isAdmin'
@@ -13,7 +23,15 @@ import { isAuthor } from '@/utils/isAuthor'
 import { isEdited } from '@/utils/isEdited'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import MDEditor from '@uiw/react-md-editor'
-import { CalendarDaysIcon } from 'lucide-react'
+import {
+	AlertCircle,
+	CalendarDaysIcon,
+	CircleX,
+	EllipsisVertical,
+	Package,
+	PackageOpen,
+	Pencil,
+} from 'lucide-react'
 import { useState } from 'react'
 import { FaArrowLeft } from 'react-icons/fa6'
 import { IoCalendar } from 'react-icons/io5'
@@ -30,6 +48,16 @@ export const FullNote = () => {
 	const queryClient = useQueryClient()
 	const navigate = useNavigate()
 	const [isEdit, setIsEdit] = useState(false)
+	const { mutate: toggleActualNoteMutate } = useMutation({
+		mutationKey: [QUERIES.TOGGLE_ACTUAL_NOTE],
+		mutationFn: notesService.toggleActualNote,
+		onSuccess(data) {
+			queryClient.invalidateQueries({ queryKey: [QUERIES.GET_NOTE] })
+			toast.success(data?.message?.title, {
+				description: data?.message?.description,
+			})
+		},
+	})
 	const { mutate } = useMutation({
 		mutationKey: [QUERIES.DELETE_NOTE],
 		mutationFn: notesService.deleteNote,
@@ -66,12 +94,75 @@ export const FullNote = () => {
 			return <EditView note={data} setEdit={setIsEdit} />
 		}
 		return (
-			<div className='flex flex-col gap-10'>
-				<div
-					onClick={() => navigate(-1)}
-					className='flex items-center gap-2 opacity-50 cursor-pointer'
-				>
-					<FaArrowLeft />К списку статей
+			<div
+				className={cn('flex flex-col gap-10', [
+					{ 'pt-10 lg:pt-3': !data.isActual },
+				])}
+			>
+				{!data.isActual && (
+					<div className='w-full h-[35px] bg-red-500/20 flex text-red-600 items-center  justify-center absolute top-0 left-0 mb-10 text-xs gap-2 select-none'>
+						<AlertCircle size={16} />
+						Данная публикация является неактуальной
+					</div>
+				)}
+				<div className='flex items-center justify-between'>
+					<div
+						onClick={() => navigate(ROUTES.CATEGORY + data.categoriesId)}
+						className='flex items-center gap-2 opacity-50 cursor-pointer w-max'
+					>
+						<FaArrowLeft />К списку статей
+					</div>
+					{isAuthor(data.author?.id, user?.id!) ||
+					isAdmin(user?.isAdmin!) ||
+					user?.moderatedContent.find(
+						categoryValid => categoryValid.id === data.categoriesId
+					) ? (
+						<DropdownMenu>
+							<DropdownMenuTrigger asChild>
+								<Button
+									variant='outline'
+									size={'icon'}
+									className='rounded-full'
+								>
+									<EllipsisVertical />
+								</Button>
+							</DropdownMenuTrigger>
+							<DropdownMenuContent className='w-56 mr-2 lg:mr-5'>
+								<DropdownMenuGroup>
+									<DropdownMenuItem
+										className='cursor-pointer'
+										// @ts-ignore
+										onClick={() => toggleActualNoteMutate(data.id)}
+									>
+										{data.isActual ? (
+											<Package className='w-4 h-4 mr-2' />
+										) : (
+											<PackageOpen className='w-4 h-4 mr-2' />
+										)}
+										<span className='text-xs'>
+											Пометить как{' '}
+											{data.isActual ? 'неактуально' : 'актуальное'}
+										</span>
+									</DropdownMenuItem>
+									<DropdownMenuSeparator />
+									<DropdownMenuItem
+										className='cursor-pointer'
+										onClick={() => setIsEdit(true)}
+									>
+										<Pencil className='w-4 h-4 mr-2' />
+										<span className='text-xs'>Редактировать</span>
+									</DropdownMenuItem>
+									<DropdownMenuItem
+										className='cursor-pointer hover:!bg-red-500/10 dark:hover:text-accent dark:hover:!bg-red-500/70'
+										onClick={() => deleteNote(params.id!)}
+									>
+										<CircleX className='w-4 h-4 mr-2' />
+										<span className='text-xs'>Удалить</span>
+									</DropdownMenuItem>
+								</DropdownMenuGroup>
+							</DropdownMenuContent>
+						</DropdownMenu>
+					) : null}
 				</div>
 				<h1 className='text-2xl'>{data?.title}</h1>
 				<MDEditor.Markdown
@@ -112,24 +203,6 @@ export const FullNote = () => {
 								</HoverCardContent>
 							</HoverCard>
 						</span>
-						{isAuthor(data.author?.id, user?.id!) ||
-						isAdmin(user?.isAdmin!) ||
-						user?.moderatedContent.find(
-							categoryValid => categoryValid.id === data.categoriesId
-						) ? (
-							<div className='flex items-center gap-5'>
-								<Button size={'sm'} onClick={() => setIsEdit(true)}>
-									Редактировать
-								</Button>
-								<Button
-									size={'sm'}
-									variant='destructive'
-									onClick={() => deleteNote(params.id!)}
-								>
-									Удалить
-								</Button>
-							</div>
-						) : null}
 					</div>
 					<span className='flex items-center gap-2 text-xs opacity-50 lg:text-lg'>
 						{isEdited(data) ? <MdModeEdit /> : <IoCalendar />}

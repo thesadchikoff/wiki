@@ -10,7 +10,7 @@ export interface InputProps extends React.ComponentProps<'input'> {
 export const Input = forwardRef<HTMLInputElement, InputProps>(
 	({ label, helperText, error, className, type, ...nativeProps }, ref) => {
 		return (
-			<div className={cn(' flex flex-col gap-2')}>
+			<div className={cn('flex flex-col gap-2')}>
 				{label && <p className='mb-1.5 text-sm'>{label}</p>}
 				<input
 					ref={ref}

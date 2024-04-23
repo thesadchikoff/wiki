@@ -40,6 +40,7 @@ function App() {
 	return (
 		<UserProvider user={user} setUser={setUser}>
 			<Toaster style={{ zIndex: 1000 }} />
+
 			<BrowserRouter>
 				<Routes>
 					{routerList.map(page => {

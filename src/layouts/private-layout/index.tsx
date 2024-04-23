@@ -1,4 +1,5 @@
 import { Header } from '@/components'
+import UpdateModal from '@/components/update-modal/UpdateModal'
 import { UserPermission } from '@/components/user-permission/UserPermission'
 import { cn } from '@/utils/classnames'
 import { PropsWithChildren } from 'react'
@@ -12,6 +13,7 @@ export const PrivateLayout = ({ children }: PrivateLayout) => {
 		>
 			<Header />
 			<UserPermission />
+			<UpdateModal />
 			<main className='relative flex flex-col flex-1 p-3 overflow-y-auto lg:p-10'>
 				{children}
 			</main>
