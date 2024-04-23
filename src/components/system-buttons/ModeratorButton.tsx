@@ -1,6 +1,7 @@
 import { ROUTES } from '@/router/routes'
-import { FaShieldAlt } from 'react-icons/fa'
-import { Link, useLocation } from 'react-router-dom'
+import { ShieldHalf } from 'lucide-react'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { Button } from '../ui'
 
 interface ModeratorButton {
 	isMark?: boolean
@@ -8,16 +9,17 @@ interface ModeratorButton {
 
 export const ModeratorButton = ({ isMark = false }: ModeratorButton) => {
 	const p = useLocation()
+	const navigate = useNavigate()
 	if (p.pathname === '/mod-panel') return null
 	return (
-		<Link
-			to={ROUTES.MOD_PANEL}
-			className='w-[50px] h-[50px] rounded-full text-white bg-blue-500 flex flex-col items-center justify-center cursor-pointer relative'
+		<Button
+			prefix='3'
+			size={'icon'}
+			onClick={() => navigate(ROUTES.MOD_PANEL)}
+			className='rounded-full'
+			variant={'destructive'}
 		>
-			{isMark && (
-				<div className='w-[12px] h-[12px] absolute bg-red-500 right-[1px] top-[1px] border-2 rounded-full  dark:border-dark' />
-			)}
-			<FaShieldAlt className='text-xl' />
-		</Link>
+			<ShieldHalf className='text-2xl' />
+		</Button>
 	)
 }
