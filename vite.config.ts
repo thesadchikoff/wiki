@@ -7,6 +7,7 @@ import packageJson from './package.json'
 export default defineConfig({
 	plugins: [react()],
 	define: {
+		APP_VERSION: JSON.stringify(process.env.npm_package_version),
 		'import.meta.env.PACKAGE_VERSION': JSON.stringify(packageJson.version),
 	},
 	resolve: {

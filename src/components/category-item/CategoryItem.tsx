@@ -1,13 +1,14 @@
 import { ROUTES } from '@/router/routes'
 import { declineTool } from '@/utils/declineTool'
 import { Link } from 'react-router-dom'
+import { Badge } from '../ui/badge'
 
 interface CategoryItem {
 	category: CategoryResponse
 }
 export const CategoryItem = ({ category }: CategoryItem) => {
-	const endDate = new Date(category.createdAt).getDate() + 2
-	const createdDate = new Date(category.createdAt).getDate()
+	const createdDate = new Date(category.createdAt).getDate() + 2
+	const currentDate = new Date().getDate()
 
 	return (
 		<Link
@@ -38,11 +39,7 @@ export const CategoryItem = ({ category }: CategoryItem) => {
 				<span>
 					{category._count.notes} {declineTool(category._count.notes)}
 				</span>
-				{createdDate < endDate && (
-					<span className='px-4 py-2 text-xs text-red-500 bg-red-500 bg-opacity-25 rounded dark:text-white'>
-						New
-					</span>
-				)}
+				{createdDate > currentDate && <Badge>New</Badge>}
 			</div>
 		</Link>
 	)

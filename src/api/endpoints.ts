@@ -15,4 +15,5 @@ export const enum BACKEND_ENDPOINTS {
 	MOD_CATEGORY = '/categories/moderation',
 	MOD_NOTES = '/notes/moderation/',
 	MOD_ACCEPT_NOTE = '/notes/accept-or-decline',
+	TOGGLE_ACTUAL_NOTE = '/notes/toggle-actual-note/',
 }

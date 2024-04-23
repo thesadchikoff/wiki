@@ -4,6 +4,7 @@ type Note = {
 	categoriesId: string
 	oldContent: string
 	isEdited: boolean
+	isActual: boolean
 }
 
 type ResponseNote = {
