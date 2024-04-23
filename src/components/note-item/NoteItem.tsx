@@ -9,6 +9,7 @@ import { ROUTES } from '@/router/routes'
 import { dateFormat } from '@/utils/dateFormat'
 import { IoCalendar } from 'react-icons/io5'
 import { useNavigate, useParams } from 'react-router-dom'
+import { Badge } from '../ui/badge'
 interface NoteItem {
 	note: ResponseNote
 }
@@ -26,11 +27,12 @@ export const NoteItem = ({ note }: NoteItem) => {
 				<CardDescription>{note.author.email}</CardDescription>
 			</CardHeader>
 			{/* <CardContent className='z-0'></CardContent> */}
-			<CardFooter className='z-[50000] flex justify-between '>
+			<CardFooter className='flex justify-between'>
 				<span className='flex items-center gap-2 text-sm opacity-50'>
 					<IoCalendar />
 					{dateFormat(note.createdAt)}
 				</span>
+				<Badge variant={'destructive'}>Актуально</Badge>
 			</CardFooter>
 		</Card>
 	)
