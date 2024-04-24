@@ -5,6 +5,7 @@ import { cn } from '@/utils/classnames'
 import { PropsWithChildren, useState } from 'react'
 interface PrivateLayout extends PropsWithChildren {}
 export const PrivateLayout = ({ children }: PrivateLayout) => {
+	// @ts-ignore
 	const [isShow, setIsShow] = useState(
 		localStorage.getItem('isShowUpdateModal')
 	)

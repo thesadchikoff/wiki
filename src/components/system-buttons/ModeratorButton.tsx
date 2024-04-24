@@ -6,7 +6,7 @@ import { Button } from '../ui'
 interface ModeratorButton {
 	isMark?: boolean
 }
-
+// @ts-ignore
 export const ModeratorButton = ({ isMark = false }: ModeratorButton) => {
 	const p = useLocation()
 	const navigate = useNavigate()
