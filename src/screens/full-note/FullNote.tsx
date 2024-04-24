@@ -57,6 +57,15 @@ export const FullNote = () => {
 				description: data?.message?.description,
 			})
 		},
+		onError(error) {
+			toast.error(
+				// @ts-ignore
+				error?.response?.data?.message
+					? // @ts-ignore
+					  error?.response?.data?.message
+					: error.message
+			)
+		},
 	})
 	const { mutate } = useMutation({
 		mutationKey: [QUERIES.DELETE_NOTE],

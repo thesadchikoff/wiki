@@ -7,9 +7,16 @@ export default new (class NotesService {
 		return data
 	}
 
-	async searchNotes(searchData: { searchValue: string; categoriesId: string }) {
+	async searchNotes(searchData: {
+		searchValue: string
+		categoriesId: string
+		page?: number
+	}) {
 		const { data } = await api.post(
-			BACKEND_ENDPOINTS.SEARCH_NOTES + searchData.categoriesId,
+			BACKEND_ENDPOINTS.SEARCH_NOTES +
+				searchData.categoriesId +
+				'/' +
+				searchData.page,
 			searchData
 		)
 		return data

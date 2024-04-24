@@ -26,6 +26,17 @@ function App() {
 		refetchOnMount: false,
 		refetchOnReconnect: false,
 	})
+
+	const initModalShowStateInLocalStorage = () => {
+		const isShow = localStorage.getItem('isShowUpdateModal')
+		if (!isShow) {
+			localStorage.setItem('isShowUpdateModal', 'true')
+		}
+		return null
+	}
+	useEffect(() => {
+		initModalShowStateInLocalStorage()
+	}, [])
 	useEffect(() => {
 		if (isSuccess) {
 			setUser(data)
@@ -37,6 +48,7 @@ function App() {
 	if (isLoading) {
 		return <LoadingScreen />
 	}
+
 	return (
 		<UserProvider user={user} setUser={setUser}>
 			<Toaster style={{ zIndex: 1000 }} />
