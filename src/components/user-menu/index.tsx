@@ -1,58 +1,60 @@
+import { useUser } from '@/context'
+import { ROUTES } from '@/router/routes'
+import userService from '@/services/user/user.service'
+import { LogOut, Settings2, User2, User2Icon } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'sonner'
+import { Button } from '../ui'
 import {
-	Menubar,
-	MenubarContent,
-	MenubarMenu,
-	MenubarTrigger,
-} from '@/components/ui/menubar'
-import { cn } from '@/utils/classnames'
-import { PropsWithChildren, useEffect, useRef } from 'react'
-interface UserMenu extends PropsWithChildren {
-	email: string
-	state: boolean
-	setState: React.Dispatch<React.SetStateAction<boolean>>
-}
-export const UserMenu = ({ email, setState, state, children }: UserMenu) => {
-	const rootRef = useRef<HTMLDivElement>(null)
-	useEffect(() => {
-		const handleWrapperClick = (event: MouseEvent) => {
-			// @ts-ignore
-			if (rootRef.current && !rootRef.current.contains(event.target!)) {
-				setState?.(false)
-			}
-		}
-		const handleEscapePress = (event: KeyboardEvent) => {
-			if (event.key === 'Escape') {
-				setState?.(false)
-			}
-		}
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuGroup,
+	DropdownMenuItem,
+	DropdownMenuSeparator,
+	DropdownMenuTrigger,
+} from '../ui/dropdown-menu'
 
-		window.addEventListener('click', handleWrapperClick)
-		window.addEventListener('keydown', handleEscapePress)
-
-		return () => {
-			window.removeEventListener('click', handleWrapperClick)
-			window.removeEventListener('keydown', handleEscapePress)
-		}
-	}, [setState])
+export const UserMenu = () => {
+	const { user, setUser } = useUser()
+	const navigate = useNavigate()
+	const logoutHandler = () => {
+		userService.logout()
+		setUser(null)
+		toast.info('Вы вышли из профиля')
+		navigate(ROUTES.AUTH)
+	}
 	return (
-		<Menubar ref={rootRef}>
-			<MenubarMenu>
-				<MenubarTrigger
-					onClick={() => setState(!state)}
-					className={cn('select-none cursor-pointer')}
-				>
-					{email}
-				</MenubarTrigger>
-				{state && (
-					<MenubarContent
-						className={cn(
-							' z-50 flex flex-col gap-2 rounded shadow-xl  bg-light dark:bg-dark-foreground transition-all duration-200'
-						)}
+		<DropdownMenu>
+			<DropdownMenuTrigger asChild>
+				<Button variant='outline' size={'icon'} className='rounded-full'>
+					<User2Icon size={20} />
+				</Button>
+			</DropdownMenuTrigger>
+			<DropdownMenuContent className='w-56 mr-2 lg:mr-5'>
+				<DropdownMenuGroup>
+					<DropdownMenuItem
+						className='cursor-pointer'
+						// @ts-ignore
+						onClick={() => toggleActualNoteMutate(data.id)}
 					>
-						{children}
-					</MenubarContent>
-				)}
-			</MenubarMenu>
-		</Menubar>
+						<User2 className='w-4 h-4 mr-2' />
+
+						<span className='text-xs'>{user?.email}</span>
+					</DropdownMenuItem>
+					<DropdownMenuSeparator />
+					<DropdownMenuItem className='cursor-pointer'>
+						<Settings2 className='w-4 h-4 mr-2' />
+						<span className='text-xs'>Настройки</span>
+					</DropdownMenuItem>
+					<DropdownMenuItem
+						className='cursor-pointer hover:!bg-red-500/10 dark:hover:text-accent dark:hover:!bg-red-500/70'
+						onClick={logoutHandler}
+					>
+						<LogOut className='w-4 h-4 mr-2' />
+						<span className='text-xs'>Выйти</span>
+					</DropdownMenuItem>
+				</DropdownMenuGroup>
+			</DropdownMenuContent>
+		</DropdownMenu>
 	)
 }
