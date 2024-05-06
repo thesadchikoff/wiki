@@ -61,7 +61,7 @@ export const SignUp = () => {
 					isPending
 				}
 			>
-				Регистрация
+				Продолжить
 			</Button>
 		</form>
 	)

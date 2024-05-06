@@ -1,4 +1,5 @@
 import { ROUTES } from '@/router/routes'
+import { compareDate } from '@/utils/compareDate'
 import { declineTool } from '@/utils/declineTool'
 import { Link } from 'react-router-dom'
 import { Badge } from '../ui/badge'
@@ -7,9 +8,6 @@ interface CategoryItem {
 	category: CategoryResponse
 }
 export const CategoryItem = ({ category }: CategoryItem) => {
-	const createdDate = new Date(category.createdAt).getDate() + 2
-	const currentDate = new Date().getDate()
-
 	return (
 		<Link
 			to={ROUTES.CATEGORY + category.id}
@@ -39,7 +37,7 @@ export const CategoryItem = ({ category }: CategoryItem) => {
 				<span>
 					{category._count.notes} {declineTool(category._count.notes)}
 				</span>
-				{createdDate > currentDate && <Badge>New</Badge>}
+				{compareDate(category.createdAt) && <Badge>New</Badge>}
 			</div>
 		</Link>
 	)

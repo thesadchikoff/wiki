@@ -17,8 +17,8 @@ export const useSignUp = () => {
 		onSuccess(data) {
 			setUser(data.user)
 			navigate(from)
-			toast.success('Success', {
-				description: `Аккаунт создан`,
+			toast.success('Продолжение регистрации', {
+				description: `Для завершения регистрации проверьте письмо на почте`,
 			})
 		},
 		onError(error) {

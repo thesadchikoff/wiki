@@ -61,6 +61,11 @@ function App() {
 								<Route
 									key={page.path}
 									path={page.path}
+									errorElement={
+										<div className='absolute top-0 left-0 w-full h-full text-white bg-orange-500'>
+											ERROR!
+										</div>
+									}
 									element={
 										<OnlyAuth
 											component={
@@ -78,6 +83,11 @@ function App() {
 								<Route
 									key={page.path}
 									path={page.path}
+									errorElement={
+										<div className='absolute top-0 left-0 w-full h-full text-white bg-orange-500'>
+											ERROR!
+										</div>
+									}
 									element={
 										<OnlyAdmin
 											component={
@@ -95,6 +105,11 @@ function App() {
 								<Route
 									key={page.path}
 									path={page.path}
+									errorElement={
+										<div className='absolute top-0 left-0 w-full h-full text-white bg-orange-500'>
+											ERROR!
+										</div>
+									}
 									element={
 										<OnlyMod
 											component={
@@ -111,6 +126,11 @@ function App() {
 							<Route
 								key={page.path}
 								path={page.path}
+								errorElement={
+									<div className='absolute top-0 left-0 w-full h-full text-white bg-orange-500'>
+										ERROR!
+									</div>
+								}
 								element={
 									<OnlyUnAuth
 										component={

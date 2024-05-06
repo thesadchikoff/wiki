@@ -1,6 +1,7 @@
 export const enum ROUTES {
 	HOME = '/',
 	AUTH = '/auth',
+	VERIFY = '/verify/',
 	CREATE_NOTE = '/create-note',
 	NOTES = '/notes',
 	NOTE = '/notes/',

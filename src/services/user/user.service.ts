@@ -12,10 +12,14 @@ class UserService {
 	}
 	async signUp(authData: AuthData) {
 		const { data } = await api.post<AuthResponse>(
-			BACKEND_ENDPOINTS.SIGN_UP,
+			BACKEND_ENDPOINTS.VERIFY,
 			authData
 		)
-		localStorage.setItem('accessToken', data.accessToken)
+		return data
+	}
+
+	async verifyCheck(code: string) {
+		const { data } = await api.get(BACKEND_ENDPOINTS.VERIFY_CHECK + code)
 		return data
 	}
 	async getProfile() {

@@ -2,13 +2,17 @@ import { Header } from '@/components'
 import UpdateModal from '@/components/update-modal/UpdateModal'
 import { UserPermission } from '@/components/user-permission/UserPermission'
 import { cn } from '@/utils/classnames'
-import { PropsWithChildren, useState } from 'react'
+import { PropsWithChildren, useEffect, useState } from 'react'
 interface PrivateLayout extends PropsWithChildren {}
 export const PrivateLayout = ({ children }: PrivateLayout) => {
 	// @ts-ignore
 	const [isShow, setIsShow] = useState(
 		localStorage.getItem('isShowUpdateModal')
 	)
+
+	useEffect(() => {
+		document.title = 'База знаний'
+	}, [])
 
 	return (
 		<div

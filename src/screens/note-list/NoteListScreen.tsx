@@ -112,14 +112,11 @@ export const NoteListScreen = () => {
 		} else if (action === 'pageClick' && newPage !== null) {
 			updatedPage = newPage
 		}
-
 		updateQueryParam(updatedPage)
 		mutate({ searchValue, categoriesId: params.id!, page: updatedPage })
 	}
 
 	useEffect(() => {
-		console.log(queryParams)
-		console.log(currentPage)
 		mutate({ searchValue, categoriesId: params.id!, page: currentPage })
 	}, [])
 
@@ -149,7 +146,6 @@ export const NoteListScreen = () => {
 			)
 		}
 		if (data && isSuccess) {
-			console.log(data)
 			return (
 				<div className='grid w-full grid-cols-1 gap-5 lg:grid-cols-2 xl:grid-cols-3'>
 					{data.notes.map((note: ResponseNote) => {

@@ -5,7 +5,9 @@ import { CreateNoteScreen } from '@/screens/create-note/CreateNoteScreen'
 import { FullNote } from '@/screens/full-note/FullNote'
 import { AcceptOrDeclineScreen } from '@/screens/moders-screens/accept-or-decline-screen/AcceptOrDeclineScreen'
 import { ModPanel } from '@/screens/moders-screens/mod-panel/ModPanel'
+import NotFound from '@/screens/not-found/NotFound'
 import { NoteListScreen } from '@/screens/note-list/NoteListScreen'
+import VerifyScreen from '@/screens/verify/VerifyScreen'
 import { ROUTES } from './routes'
 
 export const routerList = [
@@ -52,6 +54,18 @@ export const routerList = [
 	{
 		path: ROUTES.AUTH,
 		component: AuthScreen,
+		isProtected: false,
+		isAdmin: false,
+	},
+	{
+		path: ROUTES.VERIFY + ':code',
+		component: VerifyScreen,
+		isProtected: false,
+		isAdmin: false,
+	},
+	{
+		path: '*',
+		component: NotFound,
 		isProtected: false,
 		isAdmin: false,
 	},
