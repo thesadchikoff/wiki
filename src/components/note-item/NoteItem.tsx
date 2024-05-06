@@ -32,11 +32,7 @@ export const NoteItem = ({ note }: NoteItem) => {
 					<IoCalendar />
 					{dateFormat(note.createdAt)}
 				</span>
-				{note.isActual ? (
-					<Badge variant={'secondary'}>Актуально</Badge>
-				) : (
-					<Badge variant={'destructive'}>Неактуально</Badge>
-				)}
+				{!note.isActual && <Badge variant={'destructive'}>Неактуально</Badge>}
 			</CardFooter>
 		</Card>
 	)

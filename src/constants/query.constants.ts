@@ -1,6 +1,7 @@
 export const enum QUERIES {
 	SIGN_IN = 'sign-in',
 	SIGN_UP = 'sign-up',
+	CHECK_VERIFY = 'check-verify',
 	PROFILE = 'get-profile',
 	LOGOUT = 'logout',
 	GET_NOTE = 'get-note',

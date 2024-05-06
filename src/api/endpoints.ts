@@ -1,6 +1,8 @@
 export const enum BACKEND_ENDPOINTS {
 	SIGN_IN = '/auth/sign-in',
 	SIGN_UP = '/auth/sign-up',
+	VERIFY = 'users/verify',
+	VERIFY_CHECK = 'users/verify-check/',
 	PROFILE = '/auth/profile',
 	LOGOUT = '/auth/logout',
 	CREATE_NOTE = '/notes',
