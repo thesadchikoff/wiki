@@ -1,4 +1,5 @@
 import { Button } from '@/components'
+import RenderUserBadge from '@/components/forms/auth/components/render-user-badge/RenderUserBadge'
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -197,9 +198,7 @@ export const FullNote = () => {
 												{data.author?.email}
 											</h4>
 											<p className='text-sm'>
-												{data.author.isAdmin
-													? 'Администратор платформы'
-													: 'Пользователь'}
+												<RenderUserBadge {...data.author} />
 											</p>
 											<div className='flex items-center pt-2'>
 												<CalendarDaysIcon className='w-4 h-4 mr-2 opacity-70' />{' '}
