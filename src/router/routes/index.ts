@@ -10,4 +10,6 @@ export const enum ROUTES {
 	CREATE_CATEGORY = '/categories/create',
 	MOD_PANEL = '/mod-panel',
 	MOD_ACCEPT_NOTES = '/mod-panel/accept-or-decline/',
+	PROFILE = '/profile',
+	SETTINGS = PROFILE + '/settings',
 }

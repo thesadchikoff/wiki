@@ -1,5 +1,4 @@
 import { Button } from '@/components'
-// import { Button } from "@/components/ui/button"
 import { CategoryItem } from '@/components/category-item/CategoryItem'
 import { QUERIES } from '@/constants/query.constants'
 import { useUser } from '@/context'
@@ -42,9 +41,6 @@ export const CategoriesScreen = () => {
 						return <CategoryItem category={category} />
 					})}
 				</div>
-				{/* <div className={styles.title}>
-					<span>This message for alert</span>
-				</div> */}
 			</div>
 		)
 	}

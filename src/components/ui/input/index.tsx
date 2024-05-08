@@ -24,7 +24,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 					<p
 						className={cn(
 							'flex-grow-0 text-sm text-tertiary',
-							error && 'text-error'
+							error && '!text-error'
 						)}
 					>
 						{helperText}

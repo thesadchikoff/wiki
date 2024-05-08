@@ -1,6 +1,7 @@
 export const enum BACKEND_ENDPOINTS {
 	SIGN_IN = '/auth/sign-in',
 	SIGN_UP = '/auth/sign-up',
+	CHANGE_USER_PASSWORD = '/auth/change-pass',
 	VERIFY = 'users/verify',
 	VERIFY_CHECK = 'users/verify-check/',
 	PROFILE = '/auth/profile',
@@ -18,4 +19,7 @@ export const enum BACKEND_ENDPOINTS {
 	MOD_NOTES = '/notes/moderation/',
 	MOD_ACCEPT_NOTE = '/notes/accept-or-decline',
 	TOGGLE_ACTUAL_NOTE = '/notes/toggle-actual-note/',
+	USEFUL_NOTE = GET_NOTES + '/useful/',
+	DIS_USEFUL_NOTE = GET_NOTES + '/dis-useful/',
+	NOTE_PINNED_TOGGLE = GET_NOTES + '/note-pinned-toggle/',
 }

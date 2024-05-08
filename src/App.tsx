@@ -51,7 +51,10 @@ function App() {
 
 	return (
 		<UserProvider user={user} setUser={setUser}>
-			<Toaster style={{ zIndex: 1000 }} />
+			<Toaster
+				style={{ zIndex: 1000, color: 'black !important' }}
+				className='!text-red-500'
+			/>
 
 			<BrowserRouter>
 				<Routes>

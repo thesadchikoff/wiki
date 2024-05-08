@@ -34,7 +34,7 @@ export const CategoryItem = ({ category }: CategoryItem) => {
 				/>
 			</div>
 			<div className='flex items-center justify-between p-4 rounded-b bg bg-light dark:bg-dark-foreground'>
-				<span>
+				<span className='dark:text-white'>
 					{category._count.notes} {declineTool(category._count.notes)}
 				</span>
 				{compareDate(category.createdAt) && <Badge>New</Badge>}

@@ -1,5 +1,5 @@
 import { Button } from '@/components'
-import RenderUserBadge from '@/components/forms/auth/components/render-user-badge/RenderUserBadge'
+import FullItemFooter from '@/components/full-item-footer/FullItemFooter'
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -8,35 +8,28 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import {
-	HoverCard,
-	HoverCardContent,
-	HoverCardTrigger,
-} from '@/components/ui/hover-card'
 import { QUERIES } from '@/constants/query.constants'
 import { useUser } from '@/context'
 import { cn } from '@/lib/utils'
 import { ROUTES } from '@/router/routes'
 import notesService from '@/services/notes/notes.service'
-import { dateFormat } from '@/utils/dateFormat'
 import { isAdmin } from '@/utils/isAdmin'
 import { isAuthor } from '@/utils/isAuthor'
-import { isEdited } from '@/utils/isEdited'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import MDEditor from '@uiw/react-md-editor'
 import {
 	AlertCircle,
-	CalendarDaysIcon,
 	CircleX,
 	EllipsisVertical,
 	Package,
 	PackageOpen,
 	Pencil,
+	Pin,
+	PinOff,
 } from 'lucide-react'
 import { useState } from 'react'
+import { AiFillPushpin } from 'react-icons/ai'
 import { FaArrowLeft } from 'react-icons/fa6'
-import { IoCalendar } from 'react-icons/io5'
-import { MdModeEdit } from 'react-icons/md'
 import { PiMaskSad } from 'react-icons/pi'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'sonner'
@@ -56,6 +49,25 @@ export const FullNote = () => {
 			queryClient.invalidateQueries({ queryKey: [QUERIES.GET_NOTE] })
 			toast.success(data?.message?.title, {
 				description: data?.message?.description,
+			})
+		},
+		onError(error) {
+			toast.error(
+				// @ts-ignore
+				error?.response?.data?.message
+					? // @ts-ignore
+					  error?.response?.data?.message
+					: error.message
+			)
+		},
+	})
+	const togglePinnedMutation = useMutation({
+		mutationKey: [QUERIES.NOTE_PINNED_TOGGLE],
+		mutationFn: notesService.notePinnedToggle,
+		onSuccess(data) {
+			queryClient.invalidateQueries({ queryKey: [QUERIES.GET_NOTE] })
+			toast.success(data.message.title, {
+				description: data.message.description,
 			})
 		},
 		onError(error) {
@@ -162,6 +174,24 @@ export const FullNote = () => {
 										<Pencil className='w-4 h-4 mr-2' />
 										<span className='text-xs'>Редактировать</span>
 									</DropdownMenuItem>
+									{user?.isAdmin ||
+										(user?.moderatedContent.find(
+											moderatedItem => moderatedItem.id === data.categoriesId
+										) && (
+											<DropdownMenuItem
+												className='cursor-pointer'
+												onClick={() => togglePinnedMutation.mutate(data.id)}
+											>
+												{data.isPinned ? (
+													<PinOff className='w-4 h-4 mr-2' />
+												) : (
+													<Pin className='w-4 h-4 mr-2' />
+												)}
+												<span className='text-xs'>
+													{data.isPinned ? 'Открепить' : 'Закрепить'}
+												</span>
+											</DropdownMenuItem>
+										))}
 									<DropdownMenuItem
 										className='cursor-pointer hover:!bg-red-500/10 dark:hover:text-accent dark:hover:!bg-red-500/70'
 										onClick={() => deleteNote(params.id!)}
@@ -174,51 +204,20 @@ export const FullNote = () => {
 						</DropdownMenu>
 					) : null}
 				</div>
-				<h1 className='text-2xl'>{data?.title}</h1>
+				<div className='flex items-center gap-5'>
+					{data.isPinned && (
+						<span className='flex items-center gap-2 p-2 text-xs text-blue-700 border border-blue-700 rounded-full lg:rounded lg:px-4 lg:py-2 dark:text-blue-400 dark:border-blue-400 bg-blue-500/20 w-max'>
+							<AiFillPushpin size={14} />
+							<span className='hidden lg:block'>Статья закреплена</span>
+						</span>
+					)}
+					<h1 className='text-2xl'>{data?.title}</h1>
+				</div>
 				<MDEditor.Markdown
 					source={data?.oldContent ? data?.oldContent : data?.content}
 					className='bg-light-foreground dark:bg-dark'
 				/>
-				<div className='flex flex-col items-start justify-between w-full gap-5 lg:item-center lg:flex-row'>
-					<div className='flex flex-col items-start gap-5 text-lg lg:items-center lg:flex-row'>
-						<span className='flex items-center gap-2 '>
-							<HoverCard>
-								<HoverCardTrigger asChild>
-									<article className='flex items-center gap-2 opacity-50'>
-										Опубликовал{' '}
-										<article className='underline cursor-pointer'>
-											{data.author?.email}
-										</article>
-									</article>
-								</HoverCardTrigger>
-								<HoverCardContent className='w-80'>
-									<div className='flex justify-between space-x-4'>
-										<div className='space-y-1'>
-											<h4 className='text-sm font-semibold'>
-												{data.author?.email}
-											</h4>
-											<p className='text-sm'>
-												<RenderUserBadge {...data.author} />
-											</p>
-											<div className='flex items-center pt-2'>
-												<CalendarDaysIcon className='w-4 h-4 mr-2 opacity-70' />{' '}
-												<span className='text-xs text-muted-foreground '>
-													Зарегистрирован {dateFormat(data.author.createdAt)}
-												</span>
-											</div>
-										</div>
-									</div>
-								</HoverCardContent>
-							</HoverCard>
-						</span>
-					</div>
-					<span className='flex items-center gap-2 text-xs opacity-50 lg:text-lg'>
-						{isEdited(data) ? <MdModeEdit /> : <IoCalendar />}
-						Публикация
-						{isEdited(data) ? ' отредактирована' : ' размещена'}{' '}
-						{dateFormat(isEdited(data) ? data.updatedAt : data.createdAt)}
-					</span>
-				</div>
+				<FullItemFooter {...data} />
 			</div>
 		)
 	}

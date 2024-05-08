@@ -1,46 +1,74 @@
-import React, { useEffect, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 
-type ThemeContextType = {
-	theme: 'dark' | 'light'
-	toggleTheme: () => void
+type Theme = 'dark' | 'light' | 'system'
+
+type ThemeProviderProps = {
+	children: React.ReactNode
+	defaultTheme?: Theme
+	storageKey?: string
 }
 
-export const ThemeContext = React.createContext<ThemeContextType>({
-	theme: 'dark',
-	toggleTheme: () => null,
-})
+type ThemeProviderState = {
+	theme: Theme
+	setTheme: (theme: Theme) => void
+}
 
-export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-	const storedTheme = localStorage.getItem('theme')
-	const curentTheme = storedTheme ? (storedTheme as 'dark' | 'light') : 'dark'
+const initialState: ThemeProviderState = {
+	theme: 'system',
+	setTheme: () => null,
+}
 
-	const [theme, setTheme] = useState(curentTheme)
+const ThemeProviderContext = createContext<ThemeProviderState>(initialState)
+
+export function ThemeProvider({
+	children,
+	defaultTheme = 'system',
+	storageKey = 'vite-ui-theme',
+	...props
+}: ThemeProviderProps) {
+	const [theme, setTheme] = useState<Theme>(
+		() => (localStorage.getItem(storageKey) as Theme) || defaultTheme
+	)
+
 	useEffect(() => {
 		const html = document.querySelector('#main')
-		if (theme === 'dark') {
-			html?.classList.remove('light')
-			html?.setAttribute('data-color-mode', 'dark')
-			html?.classList.add('dark')
-		} else {
-			html?.classList.remove('dark')
-			html?.setAttribute('data-color-mode', 'light')
-			html?.classList.add('light')
-		}
-	}, [theme])
-	const toggleTheme = () => {
-		setTheme(prevTheme => {
-			const newTheme = prevTheme === 'light' ? 'dark' : 'light'
-			localStorage.setItem('theme', newTheme)
+		const root = window.document.documentElement
 
-			return newTheme
-		})
+		root.classList.remove('light', 'dark')
+
+		if (theme === 'system') {
+			const systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
+				.matches
+				? 'dark'
+				: 'light'
+			html?.setAttribute('data-color-mode', systemTheme)
+			root.classList.add(systemTheme)
+			return
+		}
+		html?.setAttribute('data-color-mode', theme)
+		root.classList.add(theme)
+	}, [theme])
+
+	const value = {
+		theme,
+		setTheme: (theme: Theme) => {
+			localStorage.setItem(storageKey, theme)
+			setTheme(theme)
+		},
 	}
 
 	return (
-		<ThemeContext.Provider value={{ theme, toggleTheme }}>
-			<main className={`${theme} flex flex-col w-full h-full overflow-hidden`}>
-				{children}
-			</main>
-		</ThemeContext.Provider>
+		<ThemeProviderContext.Provider {...props} value={value}>
+			{children}
+		</ThemeProviderContext.Provider>
 	)
+}
+
+export const useTheme = () => {
+	const context = useContext(ThemeProviderContext)
+
+	if (context === undefined)
+		throw new Error('useTheme must be used within a ThemeProvider')
+
+	return context
 }

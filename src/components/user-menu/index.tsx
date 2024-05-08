@@ -33,18 +33,25 @@ export const UserMenu = () => {
 			<DropdownMenuContent className='w-56 mr-2 lg:mr-5'>
 				<DropdownMenuGroup>
 					<DropdownMenuItem
-						className='cursor-pointer'
+						className='cursor-pointer group'
 						// @ts-ignore
 						onClick={() => toggleActualNoteMutate(data.id)}
 					>
-						<User2 className='w-4 h-4 mr-2' />
+						<User2 className='w-4 h-4 mr-2 dark:group-hover:stroke-black' />
 
-						<span className='text-xs'>{user?.email}</span>
+						<span className='text-xs dark:group-hover:text-black'>
+							{user?.email}
+						</span>
 					</DropdownMenuItem>
 					<DropdownMenuSeparator />
-					<DropdownMenuItem className='cursor-pointer'>
-						<Settings2 className='w-4 h-4 mr-2' />
-						<span className='text-xs'>Настройки</span>
+					<DropdownMenuItem
+						onClick={() => navigate(ROUTES.SETTINGS)}
+						className='cursor-pointer group'
+					>
+						<Settings2 className='w-4 h-4 mr-2 dark:group-hover:stroke-black' />
+						<span className='text-xs dark:group-hover:text-black'>
+							Настройки
+						</span>
 					</DropdownMenuItem>
 					<DropdownMenuItem
 						className='cursor-pointer hover:!bg-red-500/10 dark:hover:text-accent dark:hover:!bg-red-500/70'

@@ -16,4 +16,8 @@ export const enum QUERIES {
 	MOD_ACCEPT_NOTE_CHANGE = 'change-note-for-moderator',
 	MOD_GET_NOTES = 'get-note-for-moderator',
 	TOGGLE_ACTUAL_NOTE = 'toggle-actual-note',
+	CHANGE_USER_PASSWORD = 'change-user-password',
+	USEFUL_NOTE = 'useful-note',
+	DIS_USEFUL_NOTE = 'dis-useful-note',
+	NOTE_PINNED_TOGGLE = 'note-pinned-toggle',
 }

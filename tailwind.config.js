@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-	darkMode: ['selector'],
+	darkMode: ['class'],
 	content: [
 		'./pages/**/*.{ts,tsx}',
 		'./components/**/*.{ts,tsx}',
@@ -68,6 +68,7 @@ module.exports = {
 				},
 			},
 			colors: {
+				brand: '#3401FE',
 				border: 'hsl(240 5.9% 90%)',
 				input: 'hsl(240 5.9% 90%)',
 				ring: 'hsl(240 10% 3.9%)',

@@ -1,6 +1,7 @@
 import { Button, Input } from '@/components'
 import { QUERIES } from '@/constants/query.constants'
-import { useTheme } from '@/hooks/useTheme'
+import { useTheme } from '@/context/theme/ThemeProvider'
+
 import { ROUTES } from '@/router/routes'
 import categoryService from '@/services/note-category/category.service'
 import { cn } from '@/utils/classnames'

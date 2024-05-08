@@ -27,6 +27,17 @@ class UserService {
 		return data
 	}
 
+	async changePassword(changePasswordData: {
+		oldPassword: string
+		newPassword: string
+	}) {
+		const { data } = await api.post(
+			BACKEND_ENDPOINTS.CHANGE_USER_PASSWORD,
+			changePasswordData
+		)
+		return data
+	}
+
 	logout() {
 		localStorage.removeItem('accessToken')
 	}

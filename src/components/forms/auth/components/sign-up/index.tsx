@@ -8,10 +8,9 @@ export const SignUp = () => {
 	const signUpFormData = useForm<AuthData>({
 		mode: 'onChange',
 	})
-	const { mutate, isPending, context } = useSignUp()
+	const { mutate, isPending } = useSignUp()
 	const signUpSubmit = signUpFormData.handleSubmit(({ email, password }) => {
 		mutate({ email, password })
-		console.log(context)
 	})
 	return (
 		<form

@@ -6,7 +6,9 @@ import {
 	CardTitle,
 } from '@/components/ui/card'
 import { ROUTES } from '@/router/routes'
+import { cn } from '@/utils/classnames'
 import { dateFormat } from '@/utils/dateFormat'
+import { AiFillPushpin } from 'react-icons/ai'
 import { IoCalendar } from 'react-icons/io5'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Badge } from '../ui/badge'
@@ -19,9 +21,20 @@ export const NoteItem = ({ note }: NoteItem) => {
 	const navigate = useNavigate()
 	return (
 		<Card
-			className='overflow-hidden cursor-pointer'
+			className={cn('overflow-hidden cursor-pointer', [
+				{
+					'border-2 !border-brand relative': note.isPinned,
+				},
+			])}
 			onClick={() => navigate(ROUTES.CATEGORY + params.id + '/note/' + note.id)}
 		>
+			{note.isPinned && (
+				<article className='absolute top-0 right-0 w-[24px]  h-[24px] bg-brand flex items-center justify-center rounded-bl-full'>
+					<div className='relative w-full h-full'>
+						<AiFillPushpin className='absolute top-0 right-0' />
+					</div>
+				</article>
+			)}
 			<CardHeader>
 				<CardTitle>{note.title}</CardTitle>
 				<CardDescription>{note.author.email}</CardDescription>

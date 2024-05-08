@@ -7,6 +7,7 @@ import { AcceptOrDeclineScreen } from '@/screens/moders-screens/accept-or-declin
 import { ModPanel } from '@/screens/moders-screens/mod-panel/ModPanel'
 import NotFound from '@/screens/not-found/NotFound'
 import { NoteListScreen } from '@/screens/note-list/NoteListScreen'
+import SettingsScreen from '@/screens/settings/SettingsScreen'
 import VerifyScreen from '@/screens/verify/VerifyScreen'
 import { ROUTES } from './routes'
 
@@ -50,6 +51,11 @@ export const routerList = [
 		path: `${ROUTES.MOD_ACCEPT_NOTES}:id`,
 		component: AcceptOrDeclineScreen,
 		isMod: true,
+	},
+	{
+		path: ROUTES.SETTINGS,
+		component: SettingsScreen,
+		isProtected: true,
 	},
 	{
 		path: ROUTES.AUTH,

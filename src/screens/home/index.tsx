@@ -1,5 +1,5 @@
 import { Button } from '@/components'
-import { useTheme } from '@/hooks/useTheme'
+
 import { ROUTES } from '@/router/routes'
 import {
 	animate,
@@ -20,12 +20,9 @@ const COLORS = [
 ]
 
 export const HomeScreen = () => {
-	const { theme } = useTheme()
 	const navigate = useNavigate()
 	const color = useMotionValue(COLORS[0])
-	const backgroundImage = useMotionTemplate`radial-gradient(125% 125% at 50% 0%, ${
-		theme === 'dark' ? '#000' : '#fff'
-	} 50%, ${color})`
+	const backgroundImage = useMotionTemplate`radial-gradient(125% 125% at 50% 0%, transparent 50%, ${color})`
 	useEffect(() => {
 		animate(color, COLORS, {
 			ease: 'easeInOut',

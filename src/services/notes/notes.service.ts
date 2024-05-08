@@ -22,6 +22,23 @@ export default new (class NotesService {
 		return data
 	}
 
+	async usefulNote(noteId: string) {
+		const { data } = await api.get(BACKEND_ENDPOINTS.USEFUL_NOTE + noteId)
+		return data
+	}
+
+	async disUsefulNote(noteId: string) {
+		const { data } = await api.get(BACKEND_ENDPOINTS.DIS_USEFUL_NOTE + noteId)
+		return data
+	}
+
+	async notePinnedToggle(noteId: string) {
+		const { data } = await api.get(
+			BACKEND_ENDPOINTS.NOTE_PINNED_TOGGLE + noteId
+		)
+		return data
+	}
+
 	async getNotes(categoriesId: string) {
 		console.log(categoriesId)
 		const { data } = await api.get(
