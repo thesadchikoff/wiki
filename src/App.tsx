@@ -1,7 +1,7 @@
+import { Toaster } from '@/components/ui/sonner'
 import { useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { Toaster } from 'sonner'
 import { QUERIES } from './constants/query.constants'
 import { UserProvider } from './context'
 import {

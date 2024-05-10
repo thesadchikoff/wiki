@@ -66,6 +66,7 @@ export const NoteListScreen = () => {
 		// @ts-ignore
 		queryFn: param => categoryService.getOne(param.queryKey[1]),
 	})
+	const [isChanged, setIsChanged] = useState(false)
 	const [searchValue, setSearchValue] = useState('')
 	const { mutate, data, isPending, isError, isSuccess } = useMutation({
 		mutationFn: notesService.searchNotes,
@@ -155,6 +156,12 @@ export const NoteListScreen = () => {
 			)
 		}
 	}
+	useEffect(() => {
+		const savedData = JSON.parse(localStorage.getItem('articleData')!)
+		if (savedData) {
+			if (savedData.articleCategoryId === params.id) setIsChanged(true)
+		}
+	})
 	return (
 		<div className='flex flex-col flex-1 gap-10 prose-h1:prose-2xl prose-h1:font-bold prose-h2:font-bold prose-h2:prose-xl'>
 			<div className='flex flex-col gap-3'>
@@ -165,8 +172,11 @@ export const NoteListScreen = () => {
 							onClick={() =>
 								navigate(ROUTES.CATEGORY + params.id + ROUTES.CREATE_NOTE)
 							}
-							className='w-max'
+							className='relative w-max'
 						>
+							{isChanged && (
+								<span className='absolute w-2 h-2 bg-red-500 rounded-full -top-0.5 -right-0.5 animate-pulse' />
+							)}
 							Создать
 						</Button>
 					</div>

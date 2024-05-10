@@ -1,6 +1,17 @@
 import { Button } from '@/components'
 import FullItemFooter from '@/components/full-item-footer/FullItemFooter'
 import {
+	AlertDialog,
+	AlertDialogAction,
+	AlertDialogCancel,
+	AlertDialogContent,
+	AlertDialogDescription,
+	AlertDialogFooter,
+	AlertDialogHeader,
+	AlertDialogTitle,
+	AlertDialogTrigger,
+} from '@/components/ui/alert-dialog'
+import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuGroup,
@@ -116,68 +127,90 @@ export const FullNote = () => {
 			return <EditView note={data} setEdit={setIsEdit} />
 		}
 		return (
-			<div
-				className={cn('flex flex-col gap-10', [
-					{ 'pt-10 lg:pt-3': !data.isActual },
-				])}
-			>
-				{!data.isActual && (
-					<div className='w-full h-[35px] bg-red-500/20 flex text-red-600 items-center  justify-center absolute top-0 left-0 mb-10 text-xs gap-2 select-none'>
-						<AlertCircle size={16} />
-						Данная публикация является неактуальной
-					</div>
-				)}
-				<div className='flex items-center justify-between'>
-					<div
-						onClick={() => navigate(ROUTES.CATEGORY + data.categoriesId)}
-						className='flex items-center gap-2 opacity-50 cursor-pointer w-max'
-					>
-						<FaArrowLeft />К списку статей
-					</div>
-					{isAuthor(data.author?.id, user?.id!) ||
-					isAdmin(user?.isAdmin!) ||
-					user?.moderatedContent.find(
-						categoryValid => categoryValid.id === data.categoriesId
-					) ? (
-						<DropdownMenu>
-							<DropdownMenuTrigger asChild>
-								<Button
-									variant='outline'
-									size={'icon'}
-									className='rounded-full'
+			<AlertDialog>
+				<div
+					className={cn('flex flex-col gap-10', [
+						{ 'pt-10 lg:pt-3': !data.isActual },
+					])}
+				>
+					{!data.isActual && (
+						<div className='w-full h-[35px] bg-red-500/20 flex text-red-600 items-center  justify-center absolute top-0 left-0 mb-10 text-xs gap-2 select-none'>
+							<AlertCircle size={16} />
+							Данная публикация является неактуальной
+						</div>
+					)}
+					<div className='flex items-center justify-between'>
+						<div
+							onClick={() => navigate(ROUTES.CATEGORY + data.categoriesId)}
+							className='flex items-center gap-2 opacity-50 cursor-pointer w-max'
+						>
+							<FaArrowLeft />К списку статей
+						</div>
+
+						<AlertDialogContent>
+							<AlertDialogHeader>
+								<AlertDialogTitle>
+									Вы действительно хотите удалить статью?
+								</AlertDialogTitle>
+								<AlertDialogDescription>
+									После согласия статья будет удалена безвозвратно.
+								</AlertDialogDescription>
+							</AlertDialogHeader>
+							<AlertDialogFooter>
+								<AlertDialogCancel>Отмена</AlertDialogCancel>
+								<AlertDialogAction
+									onClick={() => deleteNote(params.id!)}
+									className='!bg-red-500 !text-white !outline-none'
 								>
-									<EllipsisVertical />
-								</Button>
-							</DropdownMenuTrigger>
-							<DropdownMenuContent className='w-56 mr-2 lg:mr-5'>
-								<DropdownMenuGroup>
-									<DropdownMenuItem
-										className='cursor-pointer'
-										// @ts-ignore
-										onClick={() => toggleActualNoteMutate(data.id)}
+									Удалить
+								</AlertDialogAction>
+							</AlertDialogFooter>
+						</AlertDialogContent>
+
+						{isAuthor(data.author?.id, user?.id!) ||
+						isAdmin(user?.isAdmin!) ||
+						user?.moderatedContent.find(
+							categoryValid => categoryValid.id === data.categoriesId
+						) ? (
+							<DropdownMenu>
+								<DropdownMenuTrigger asChild>
+									<Button
+										variant='outline'
+										size={'icon'}
+										className='rounded-full'
 									>
-										{data.isActual ? (
-											<Package className='w-4 h-4 mr-2' />
-										) : (
-											<PackageOpen className='w-4 h-4 mr-2' />
-										)}
-										<span className='text-xs'>
-											Пометить как{' '}
-											{data.isActual ? 'неактуально' : 'актуальное'}
-										</span>
-									</DropdownMenuItem>
-									<DropdownMenuSeparator />
-									<DropdownMenuItem
-										className='cursor-pointer'
-										onClick={() => setIsEdit(true)}
-									>
-										<Pencil className='w-4 h-4 mr-2' />
-										<span className='text-xs'>Редактировать</span>
-									</DropdownMenuItem>
-									{user?.isAdmin ||
-										(user?.moderatedContent.find(
+										<EllipsisVertical />
+									</Button>
+								</DropdownMenuTrigger>
+								<DropdownMenuContent className='w-56 mr-2 lg:mr-5'>
+									<DropdownMenuGroup>
+										<DropdownMenuItem
+											className='cursor-pointer'
+											// @ts-ignore
+											onClick={() => toggleActualNoteMutate(data.id)}
+										>
+											{data.isActual ? (
+												<Package className='w-4 h-4 mr-2' />
+											) : (
+												<PackageOpen className='w-4 h-4 mr-2' />
+											)}
+											<span className='text-xs'>
+												Пометить как{' '}
+												{data.isActual ? 'неактуально' : 'актуальное'}
+											</span>
+										</DropdownMenuItem>
+										<DropdownMenuSeparator />
+										<DropdownMenuItem
+											className='cursor-pointer'
+											onClick={() => setIsEdit(true)}
+										>
+											<Pencil className='w-4 h-4 mr-2' />
+											<span className='text-xs'>Редактировать</span>
+										</DropdownMenuItem>
+										{user?.isAdmin ||
+										user?.moderatedContent.find(
 											moderatedItem => moderatedItem.id === data.categoriesId
-										) && (
+										) ? (
 											<DropdownMenuItem
 												className='cursor-pointer'
 												onClick={() => togglePinnedMutation.mutate(data.id)}
@@ -191,34 +224,34 @@ export const FullNote = () => {
 													{data.isPinned ? 'Открепить' : 'Закрепить'}
 												</span>
 											</DropdownMenuItem>
-										))}
-									<DropdownMenuItem
-										className='cursor-pointer hover:!bg-red-500/10 dark:hover:text-accent dark:hover:!bg-red-500/70'
-										onClick={() => deleteNote(params.id!)}
-									>
-										<CircleX className='w-4 h-4 mr-2' />
-										<span className='text-xs'>Удалить</span>
-									</DropdownMenuItem>
-								</DropdownMenuGroup>
-							</DropdownMenuContent>
-						</DropdownMenu>
-					) : null}
+										) : null}
+										<AlertDialogTrigger className='w-full'>
+											<DropdownMenuItem className='cursor-pointer hover:!bg-red-500/10 dark:hover:text-accent dark:hover:!bg-red-500/70'>
+												<CircleX className='w-4 h-4 mr-2' />
+												<span className='text-xs'>Удалить</span>
+											</DropdownMenuItem>
+										</AlertDialogTrigger>
+									</DropdownMenuGroup>
+								</DropdownMenuContent>
+							</DropdownMenu>
+						) : null}
+					</div>
+					<div className='flex items-center gap-5'>
+						{data.isPinned && (
+							<span className='flex items-center gap-2 p-2 text-xs text-blue-700 border border-blue-700 rounded-full lg:rounded lg:px-4 lg:py-2 dark:text-blue-400 dark:border-blue-400 bg-blue-500/20 w-max'>
+								<AiFillPushpin size={14} />
+								<span className='hidden lg:block'>Статья закреплена</span>
+							</span>
+						)}
+						<h1 className='text-2xl'>{data?.title}</h1>
+					</div>
+					<MDEditor.Markdown
+						source={data?.oldContent ? data?.oldContent : data?.content}
+						className='bg-light-foreground dark:bg-dark'
+					/>
+					<FullItemFooter {...data} />
 				</div>
-				<div className='flex items-center gap-5'>
-					{data.isPinned && (
-						<span className='flex items-center gap-2 p-2 text-xs text-blue-700 border border-blue-700 rounded-full lg:rounded lg:px-4 lg:py-2 dark:text-blue-400 dark:border-blue-400 bg-blue-500/20 w-max'>
-							<AiFillPushpin size={14} />
-							<span className='hidden lg:block'>Статья закреплена</span>
-						</span>
-					)}
-					<h1 className='text-2xl'>{data?.title}</h1>
-				</div>
-				<MDEditor.Markdown
-					source={data?.oldContent ? data?.oldContent : data?.content}
-					className='bg-light-foreground dark:bg-dark'
-				/>
-				<FullItemFooter {...data} />
-			</div>
+			</AlertDialog>
 		)
 	}
 

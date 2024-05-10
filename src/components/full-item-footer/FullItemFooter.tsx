@@ -67,7 +67,7 @@ const FullItemFooter = ({ ...data }: ResponseNote) => {
 					</HoverCard>
 				</span>
 			</div>
-			<div className='flex items-center justify-between w-full gap-5 lg:items-center'>
+			<div className='flex items-center justify-between w-full gap-5 lg:justify-end lg:items-center'>
 				<span className='flex items-center gap-2 text-xs opacity-50'>
 					{isEdited(data) ? (
 						<MdModeEdit className='hidden lg:block' />

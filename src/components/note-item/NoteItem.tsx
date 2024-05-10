@@ -31,7 +31,7 @@ export const NoteItem = ({ note }: NoteItem) => {
 			{note.isPinned && (
 				<article className='absolute top-0 right-0 w-[24px]  h-[24px] bg-brand flex items-center justify-center rounded-bl-full'>
 					<div className='relative w-full h-full'>
-						<AiFillPushpin className='absolute top-0 right-0' />
+						<AiFillPushpin className='absolute top-0 right-0 text-white' />
 					</div>
 				</article>
 			)}

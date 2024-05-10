@@ -1,17 +1,35 @@
 import { Header } from '@/components'
 import UpdateModal from '@/components/update-modal/UpdateModal'
 import { UserPermission } from '@/components/user-permission/UserPermission'
+import { ROUTES } from '@/router/routes'
 import { cn } from '@/utils/classnames'
 import { PropsWithChildren, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'sonner'
 interface PrivateLayout extends PropsWithChildren {}
 export const PrivateLayout = ({ children }: PrivateLayout) => {
 	// @ts-ignore
 	const [isShow, setIsShow] = useState(
 		localStorage.getItem('isShowUpdateModal')
 	)
+	const navigate = useNavigate()
 
 	useEffect(() => {
 		document.title = 'База знаний'
+	}, [])
+	useEffect(() => {
+		const savedData = JSON.parse(localStorage.getItem('articleData')!)
+		if (savedData)
+			toast.info('Несохраненные данные', {
+				description: `У вас есть незавершенная статья в категории ${savedData.articleCategoryName}, написание которой было прервано.`,
+				action: {
+					label: 'Продолжить',
+					onClick: () =>
+						navigate(
+							ROUTES.CATEGORY + savedData.articleCategoryId + ROUTES.CREATE_NOTE
+						),
+				},
+			})
 	}, [])
 
 	return (
