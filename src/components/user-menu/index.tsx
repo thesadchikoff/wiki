@@ -1,7 +1,8 @@
 import { useUser } from '@/context'
 import { ROUTES } from '@/router/routes'
 import userService from '@/services/user/user.service'
-import { LogOut, Settings2, User2, User2Icon } from 'lucide-react'
+import { LogOut, Settings2, Shield, User2, User2Icon } from 'lucide-react'
+import { MdOutlineLocalPolice } from 'react-icons/md'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 import { Button } from '../ui'
@@ -10,6 +11,7 @@ import {
 	DropdownMenuContent,
 	DropdownMenuGroup,
 	DropdownMenuItem,
+	DropdownMenuLabel,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from '../ui/dropdown-menu'
@@ -32,6 +34,7 @@ export const UserMenu = () => {
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className='w-56 mr-2 lg:mr-5'>
 				<DropdownMenuGroup>
+					<DropdownMenuLabel>Профиль</DropdownMenuLabel>
 					<DropdownMenuItem
 						className='cursor-pointer group'
 						// @ts-ignore
@@ -43,7 +46,7 @@ export const UserMenu = () => {
 							{user?.email}
 						</span>
 					</DropdownMenuItem>
-					<DropdownMenuSeparator />
+
 					<DropdownMenuItem
 						onClick={() => navigate(ROUTES.SETTINGS)}
 						className='cursor-pointer group'
@@ -53,6 +56,37 @@ export const UserMenu = () => {
 							Настройки
 						</span>
 					</DropdownMenuItem>
+					{(user?.moderatedContent?.length || user?.isAdmin) && (
+						<div>
+							<DropdownMenuSeparator />
+							<DropdownMenuLabel>Специальные возможности</DropdownMenuLabel>
+
+							{user?.moderatedContent?.length && (
+								<DropdownMenuItem
+									onClick={() => navigate(ROUTES.MOD_PANEL)}
+									className='cursor-pointer group'
+								>
+									<Shield className='w-4 h-4 mr-2 dark:group-hover:stroke-black' />
+									<span className='text-xs dark:group-hover:text-black'>
+										Кабинет модератора
+									</span>
+								</DropdownMenuItem>
+							)}
+							{user.isAdmin && (
+								<DropdownMenuItem
+									onClick={() => navigate(ROUTES.MOD_PANEL)}
+									className='cursor-pointer group'
+								>
+									<MdOutlineLocalPolice className='w-4 h-4 mr-2 dark:group-hover:stroke-black' />
+									<span className='text-xs dark:group-hover:text-black'>
+										Администрирование
+									</span>
+								</DropdownMenuItem>
+							)}
+							<DropdownMenuSeparator />
+						</div>
+					)}
+
 					<DropdownMenuItem
 						className='cursor-pointer hover:!bg-red-500/10 dark:hover:text-accent dark:hover:!bg-red-500/70'
 						onClick={logoutHandler}

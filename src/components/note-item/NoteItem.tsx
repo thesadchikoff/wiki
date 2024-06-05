@@ -37,7 +37,9 @@ export const NoteItem = ({ note }: NoteItem) => {
 			)}
 			<CardHeader>
 				<CardTitle>{note.title}</CardTitle>
-				<CardDescription>{note.author.email}</CardDescription>
+				<CardDescription>
+					{note.author ? note.author.email : 'Автор удален'}
+				</CardDescription>
 			</CardHeader>
 			{/* <CardContent className='z-0'></CardContent> */}
 			<CardFooter className='flex justify-between'>

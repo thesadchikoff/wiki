@@ -17,7 +17,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 					type={type}
 					{...nativeProps}
 					className={cn(
-						'flex h-[50px] w-full border dark:border-dark rounded bg-light  dark:bg-dark outline-none dark:focus:border-dark-active focus:border-dark-active px-4'
+						'flex h-[50px] w-full border dark:border-dark rounded bg-light  dark:bg-dark outline-none dark:focus:border-dark-active focus:border-dark-active px-4',
+						className
 					)}
 				/>
 				{helperText && (

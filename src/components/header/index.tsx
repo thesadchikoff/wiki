@@ -10,7 +10,7 @@ export const Header = () => {
 	const { user } = useUser()
 
 	return (
-		<header className='z-50 backdrop-blur-[200px] bg-light border-b dark:border-dark shadow w-full h-[70px] flex items-center px-2 lg:px-10  dark:bg-dark/20 justify-between'>
+		<header className='z-50 backdrop-blur-[200px] bg-light border-b dark:border-dark shadow w-full !h-[70px] flex items-center px-2 lg:px-10  dark:bg-dark/20 justify-between'>
 			<Link to={ROUTES.HOME} className={cn('flex items-center gap-4 ')}>
 				<Logo />
 			</Link>

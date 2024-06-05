@@ -36,36 +36,40 @@ const FullItemFooter = ({ ...data }: ResponseNote) => {
 	return (
 		<div className='flex flex-col items-start justify-between w-full gap-5 px-5 py-3 text-xs bg-white rounded lg:items-center dark:bg-foreground lg:item-center lg:flex-row'>
 			<div className='flex flex-col items-center gap-5 text-lg lg:items-center lg:flex-row'>
-				<span className='flex items-center gap-2 '>
-					<HoverCard>
-						<HoverCardTrigger asChild>
-							<article className='flex items-center gap-2 text-xs opacity-50'>
-								Опубликовал{' '}
-								<article className='underline cursor-pointer'>
-									{data.author?.email}
+				<div className='flex items-center gap-2'>
+					{data.author ? (
+						<HoverCard>
+							<HoverCardTrigger asChild>
+								<article className='flex items-center gap-2 text-xs opacity-50'>
+									Опубликовал{' '}
+									<article className='underline cursor-pointer'>
+										{data?.author?.email}
+									</article>
 								</article>
-							</article>
-						</HoverCardTrigger>
-						<HoverCardContent className='w-80'>
-							<div className='flex justify-between space-x-4'>
-								<div className='space-y-1'>
-									<h4 className='text-sm font-semibold'>
-										{data.author?.email}
-									</h4>
-									<p className='text-sm'>
-										<RenderUserBadge {...data.author} />
-									</p>
-									<div className='flex items-center pt-2'>
-										<CalendarDaysIcon className='w-4 h-4 mr-2 opacity-70' />{' '}
-										<span className='text-xs text-muted-foreground '>
-											Зарегистрирован {dateFormat(data.author.createdAt)}
-										</span>
+							</HoverCardTrigger>
+							<HoverCardContent className='w-80'>
+								<div className='flex justify-between space-x-4'>
+									<div className='space-y-1'>
+										<h4 className='text-sm font-semibold'>
+											{data?.author?.email}
+										</h4>
+										<p className='text-sm'>
+											<RenderUserBadge {...data.author} />
+										</p>
+										<div className='flex items-center pt-2'>
+											<CalendarDaysIcon className='w-4 h-4 mr-2 opacity-70' />{' '}
+											<span className='text-xs text-muted-foreground '>
+												Зарегистрирован {dateFormat(data.author?.createdAt)}
+											</span>
+										</div>
 									</div>
 								</div>
-							</div>
-						</HoverCardContent>
-					</HoverCard>
-				</span>
+							</HoverCardContent>
+						</HoverCard>
+					) : (
+						<span className='text-xs opacity-50  w-max'>Автор удален</span>
+					)}
+				</div>
 			</div>
 			<div className='flex items-center justify-between w-full gap-5 lg:justify-end lg:items-center'>
 				<span className='flex items-center gap-2 text-xs opacity-50'>
