@@ -167,7 +167,7 @@ export const FullNote = () => {
 							</AlertDialogFooter>
 						</AlertDialogContent>
 
-						{isAuthor(data.author?.id, user?.id!) ||
+						{isAuthor(data?.author?.id, user?.id!) ||
 						isAdmin(user?.isAdmin!) ||
 						user?.moderatedContent.find(
 							categoryValid => categoryValid.id === data.categoriesId

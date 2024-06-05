@@ -1,4 +1,5 @@
 import { Button } from '@/components'
+import { MemoizedStars } from '@/components/ui/stars'
 
 import { ROUTES } from '@/router/routes'
 import {
@@ -37,8 +38,9 @@ export const HomeScreen = () => {
 			className='absolute top-0 left-0 flex flex-col items-center justify-center w-full h-full p-5'
 		>
 			<div className='flex flex-col items-center gap-10'>
-				<h1 className='w-full text-2xl font-bold text-center lg:w-2/3 xl:text-6xl lg:text-4xl'>
+				<h1 className='relative w-full text-2xl font-bold text-center text-transparent lg:w-2/3 xl:text-6xl lg:text-4xl bg-clip-text bg-gradient-to-b dark:from-neutral-200 from-neutral-800 to-neutral-500 dark:to-neutral-600'>
 					Добро пожаловать в базу знаний – ваш личный оазис информации!{' '}
+					<MemoizedStars />
 				</h1>
 				<p className='w-full text-center opacity-50 lg:w-1/2'>
 					Здесь вы найдете все необходимое для организации, хранения и обмена

@@ -7,6 +7,8 @@ export const enum ROUTES {
 	NOTE = '/notes/',
 	CATEGORIES = '/categories',
 	CATEGORY = '/categories/',
+	PDF_LIST = '/pdf-list',
+	PDF_VIEW = '/pdf-list/',
 	CREATE_CATEGORY = '/categories/create',
 	MOD_PANEL = '/mod-panel',
 	MOD_ACCEPT_NOTES = '/mod-panel/accept-or-decline/',

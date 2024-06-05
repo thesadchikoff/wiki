@@ -43,7 +43,7 @@ export const AcceptOrDeclineScreen = () => {
 			<BackLink title='Назад' url={ROUTES.MOD_PANEL} />
 			<div className='flex items-center gap-5'>
 				<h1 className='text-2xl font-medium opacity-70'>
-					От {data?.author?.email}
+					{data?.author ? `От ${data?.author?.email}` : 'Автор удален'}
 				</h1>
 				<span
 					className={cn(

@@ -41,6 +41,7 @@ export function ThemeProvider({
 				.matches
 				? 'dark'
 				: 'light'
+			setTheme(systemTheme)
 			html?.setAttribute('data-color-mode', systemTheme)
 			root.classList.add(systemTheme)
 			return

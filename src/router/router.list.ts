@@ -1,4 +1,5 @@
 import { AuthScreen, HomeScreen } from '@/screens'
+import PdfViewerScreen from '@/screens/PdfViewer'
 import { CategoriesScreen } from '@/screens/categories/CategoriesScreen'
 import { CreateCategory } from '@/screens/create-category/CreateCategory'
 import { CreateNoteScreen } from '@/screens/create-note/CreateNoteScreen'
@@ -7,6 +8,7 @@ import { AcceptOrDeclineScreen } from '@/screens/moders-screens/accept-or-declin
 import { ModPanel } from '@/screens/moders-screens/mod-panel/ModPanel'
 import NotFound from '@/screens/not-found/NotFound'
 import { NoteListScreen } from '@/screens/note-list/NoteListScreen'
+import PdfListScreen from '@/screens/pdf-list/PdfListScreen'
 import SettingsScreen from '@/screens/settings/SettingsScreen'
 import VerifyScreen from '@/screens/verify/VerifyScreen'
 import { ROUTES } from './routes'
@@ -38,10 +40,21 @@ export const routerList = [
 		isProtected: true,
 	},
 	{
+		path: ROUTES.PDF_LIST,
+		component: PdfListScreen,
+		isProtected: true,
+	},
+	{
+		path: `${ROUTES.PDF_LIST}/:id`,
+		component: PdfViewerScreen,
+		isProtected: true,
+	},
+	{
 		path: ROUTES.CREATE_CATEGORY,
 		component: CreateCategory,
 		isAdmin: true,
 	},
+
 	{
 		path: ROUTES.MOD_PANEL,
 		component: ModPanel,

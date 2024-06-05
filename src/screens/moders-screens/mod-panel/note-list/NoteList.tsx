@@ -49,7 +49,7 @@ export const NoteList = ({ notes, category }: NoteList) => {
 							<div className='flex items-center justify-between'>
 								<span className='flex items-center gap-2 text-xs opacity-50'>
 									<FaUserLarge />
-									{note?.author?.email}
+									{note?.author ? note?.author?.email : 'Автор удален'}
 								</span>
 								<span
 									className={cn(

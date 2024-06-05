@@ -1,6 +1,6 @@
 import { Header } from '@/components'
 import UpdateModal from '@/components/update-modal/UpdateModal'
-import { UserPermission } from '@/components/user-permission/UserPermission'
+
 import { ROUTES } from '@/router/routes'
 import { cn } from '@/utils/classnames'
 import { PropsWithChildren, useEffect, useState } from 'react'
@@ -39,9 +39,9 @@ export const PrivateLayout = ({ children }: PrivateLayout) => {
 			)}
 		>
 			<Header />
-			<UserPermission />
+
 			{isShow === 'true' && <UpdateModal />}
-			<main className='relative flex flex-col flex-1 p-3 overflow-y-auto lg:p-10'>
+			<main className='relative flex flex-col flex-1 h-full max-h-full p-3 overflow-y-auto lg:p-10'>
 				{children}
 			</main>
 		</div>

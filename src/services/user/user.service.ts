@@ -27,6 +27,19 @@ class UserService {
 		return data
 	}
 
+	async toggleEmailNotification() {
+		const { data } = await api.get(BACKEND_ENDPOINTS.TOGGLE_EMAIL_NOTIFICATION)
+		return data
+	}
+
+	async connectTelegramNotify(dataRequest: { telegramId: string }) {
+		const { data } = await api.post(
+			BACKEND_ENDPOINTS.CONNECT_TELEGRAM_NOTIFY,
+			dataRequest
+		)
+		return data
+	}
+
 	async changePassword(changePasswordData: {
 		oldPassword: string
 		newPassword: string
@@ -35,6 +48,18 @@ class UserService {
 			BACKEND_ENDPOINTS.CHANGE_USER_PASSWORD,
 			changePasswordData
 		)
+		return data
+	}
+
+	async disconnectTelegramNotify() {
+		const { data } = await api.delete(
+			BACKEND_ENDPOINTS.DISCONNECT_TELEGRAM_NOTIFY
+		)
+		return data
+	}
+
+	async toggleTelegramNotify() {
+		const { data } = await api.get(BACKEND_ENDPOINTS.TOGGLE_TELEGRAM_NOTIFY)
 		return data
 	}
 

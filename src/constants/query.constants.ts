@@ -1,6 +1,7 @@
 export const enum QUERIES {
 	SIGN_IN = 'sign-in',
 	SIGN_UP = 'sign-up',
+	TOGGLE_EMAIL_NOTIFICATION = 'toggle-email-notification',
 	CHECK_VERIFY = 'check-verify',
 	PROFILE = 'get-profile',
 	LOGOUT = 'logout',
@@ -15,9 +16,15 @@ export const enum QUERIES {
 	MOD_GET_CATEGORY = 'get-category-for-moderator',
 	MOD_ACCEPT_NOTE_CHANGE = 'change-note-for-moderator',
 	MOD_GET_NOTES = 'get-note-for-moderator',
+	DOC_CREATE = 'doc-create',
+	GET_DOC = 'get-one-doc',
+	GET_DOCS = 'get-docs',
 	TOGGLE_ACTUAL_NOTE = 'toggle-actual-note',
 	CHANGE_USER_PASSWORD = 'change-user-password',
 	USEFUL_NOTE = 'useful-note',
 	DIS_USEFUL_NOTE = 'dis-useful-note',
 	NOTE_PINNED_TOGGLE = 'note-pinned-toggle',
+	CONNECT_TELEGRAM_NOTIFY = 'connect-telegram-notify',
+	DISCONNECT_TELEGRAM_NOTIFY = 'disconnect-telegram-notify',
+	TOGGLE_TELEGRAM_NOTIFY = 'toggle-telegram-notify',
 }
